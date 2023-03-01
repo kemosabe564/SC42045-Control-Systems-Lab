@@ -1,13 +1,8 @@
-function dydt = system_model_ode(t, y, u)
-    T = 0;
-    dydt = zeros(4, 1);
-    params
-
+function dydt = system_model_ode(t, y, T)
     theta_1 = y(1);
     theta_2 = y(2);
     omega_1 = y(3);
     omega_2 = y(4);
-%     T = y(5);
     
     A1 = P_1 + P_2 + 2 * P_3 * cos(theta_2);
     A2 = P_2 + P_3 * cos(theta_2);
@@ -19,17 +14,15 @@ function dydt = system_model_ode(t, y, u)
     B3 = P_3 * omega_1 * sin(theta_2);
     B4 = b_2_0;
 
-    C1 = -g_1 * sin(theta_1) - g_2 * sin(theta_1 + theta_2);
+    C1 = -g_1 * sine(theta_1) - g_2 * sin(theta_1 + theta_2);
     C2 = - g_2 * sin(theta_1 + theta_2);
 
-    d_omega_1 = ( A2 / A4 * (B3 * omega_1 + B4 * omega_2 + C2) - (B1 * omega_1 + B2 * omega_2 + C1 - T)) * A4 / (A1 * A4 - A2 * A3);
-    d_omega_2 = -(A3 * d_omega_1 + B3 * omega_1 + B4 * omega_2 + C2) / A4;
-    
-%     d_T = (k_m_0 * u - T) / tau_e_0;
+    d_omega_1 = (B3 * omega_1 + B4 * omega_2 + C2) / A4 - () / ;
+    d_omega_2 = ;
 
     dydt(1) = omega_1;
     dydt(2) = omega_2;
+
     dydt(3) = d_omega_1;
     dydt(4) = d_omega_2;
-%     dydt(5) = d_T;
 end
