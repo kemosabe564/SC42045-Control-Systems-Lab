@@ -60,8 +60,8 @@ for X=1:steps
     pend_temp_1 = pend_temp_1 + data(7);
     while (toc < t); end;
 end
-beam_temp_1 = beam_temp_1 / steps
-pend_temp_1 = pend_temp_1 / steps
+beam_temp_1 = beam_temp_1 / steps;
+pend_temp_1 = pend_temp_1 / steps;
 
 toc;
 
@@ -98,21 +98,24 @@ for X=1:steps
     pend_temp_2 = pend_temp_2 + data(7);
     while (toc < t); end;
 end
-beam_temp_2 = beam_temp_2 / steps
-pend_temp_2 = pend_temp_2 / steps
+beam_temp_2 = beam_temp_2 / steps;
+pend_temp_2 = pend_temp_2 / steps;
 toc;
 
 % TODO: calib, get the gamma_0 and gamma_1
+gamma_0_beam = 0; gamma_0_pend = 0;
+gamma_1_beam = 0; gamma_1_pend = 0;
+
 % for the beam
 gamma_0_beam = beam_temp_2;
 gamma_1_beam = (beam_temp_1 - beam_temp_2) / pi;
 
 % for the pend
-gamma_0_pend = pend_temp_1;
-gamma_1_pend = (pend_temp_2 - pend_temp_1) / pi;
+gamma_0_pend = pend_temp_2;
+gamma_1_pend = (pend_temp_1 - pend_temp_2) / pi;
 
 % Sensor calibration:
 % adinoffs = -[0 0];
 % adingain = [1 1];
-adin_offs = [gamma_0_beam gamma_0_pend]
-adin_gain = [gamma_1_beam gamma_1_pend]
+adinoffs = [gamma_0_beam gamma_0_pend];
+adingain = [gamma_1_beam gamma_1_pend]
