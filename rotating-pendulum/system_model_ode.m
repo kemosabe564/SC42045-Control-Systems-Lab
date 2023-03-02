@@ -23,7 +23,7 @@ function dydt = system_model_ode(t, y, u, params)
     B4 = b_2_0;
 
     C1 = -g_1 * sin(theta_1) - g_2 * sin(theta_1 + theta_2);
-    C2 = - g_2 * sin(theta_1 + theta_2);
+    C2 = -g_2 * sin(theta_1 + theta_2);
 
     d_omega_1 = ( A2 / A4 * (B3 * omega_1 + B4 * omega_2 + C2) - (B1 * omega_1 + B2 * omega_2 + C1 - T)) * A4 / (A1 * A4 - A2 * A3);
     d_omega_2 = -(A3 * d_omega_1 + B3 * omega_1 + B4 * omega_2 + C2) / A4;
