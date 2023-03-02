@@ -1,7 +1,10 @@
-function dydt = system_model_ode(t, y, u)
+function dydt = system_model_ode(t, y, u, params)
     T = 0;
     dydt = zeros(4, 1);
-    params
+    
+%     params
+    [g, l_1, l_2, m_1, m_2, c_1_0, c_2_0, I_1_0, I_2_0, b_1_0, b_2_0, k_m_0, tau_e_0, P_1, P_2, P_3, g_1, g_2] ...
+    = set_params(params);
 
     theta_1 = y(1);
     theta_2 = y(2);
