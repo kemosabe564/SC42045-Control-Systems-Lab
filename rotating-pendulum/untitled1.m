@@ -1,17 +1,18 @@
-load("white-box data\1\xbeam.mat")
-load("white-box data\1\xpend.mat")
-load("calib_data\adin_gain.mat")
-load("calib_data\adin_offs.mat")
-
-% figure(1); stairs([xpend]'); ylabel('Beam, Pendulum');
-
-xpend = (xpend - adin_offs(2)) / adin_gain(2);
-xbeam = (xbeam - adin_offs(1)) / adin_gain(1);
-
-xpend(xpend > pi) = xpend(xpend > pi) - 2*pi;
-xpend = xpend /pi * 180;
-xpend = xpend(1 : 10001);
-
+% load("white-box data\1\xbeam.mat")
+% load("white-box data\1\xpend.mat")
+% load("calib_data\adin_gain.mat")
+% load("calib_data\adin_offs.mat")
+% 
+% % figure(1); stairs([xpend]'); ylabel('Beam, Pendulum');
+% 
+% xpend = (xpend - adin_offs(2)) / adin_gain(2);
+% xbeam = (xbeam - adin_offs(1)) / adin_gain(1);
+% 
+% xpend(xpend > pi) = xpend(xpend > pi) - 2*pi;
+% xpend = xpend /pi * 180;
+% xpend = xpend(1 : 10001);
+clear
+close all
 
 params1 = [-0.04, 0.06, 0.074, 0.00002, 4.8, 0.00077, 50, 0.03];
 t = 0 : 0.001 : 10;
