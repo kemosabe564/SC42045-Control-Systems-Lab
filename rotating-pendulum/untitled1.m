@@ -14,62 +14,56 @@
 clear
 close all
 
-params1 = [-0.04, 0.06, 0.074, 0.00002, 4.8, 0.00077, 50, 0.03];
+% params = [-0.04, 0.06, 0.074, 0.00002, 4.8, 0.00077, 50, 0.03];
 t = 0 : 0.001 : 10;
-theta_init = [0 pi];
+U = [0 1];
+init_theta_1 = 0; init_theta_2 = pi;
 
 
 params_init = [-0.04, 0.06, 0.074, 0.00002, 4.8, 0.00077, 50, 0.03];
 
-params_lb = [-1.04, -1.06, -1.074, -0.90002, -14.8, -0.90077, -100, -1.03];
-params_ub = [1.04, 1.06, 1.074, 0.90002, 14.8, 0.90077, 100, 1.03];
+params_lb = [-1, -1, -1, -1, -15, -1, -100, -1];
+params_ub = -params_lb;
 
 options = optimoptions(@lsqnonlin, 'Algorithm', 'trust-region-reflective');
 
+% params = params_init;
+y = sim('system_model_biased', t, [], U);
+y = [y.yout{1}.Values.Data y.yout{2}.Values.Data];
 
-OPT = optimset('MaxIter',25); % options
-f = @(x)costfun(x, xpend, t, theta_init, params1); % anonymous function for passing extra input arguments to the costfunction
-[bhat, fval]= lsqnonlin(f, params1, -1, [], options); % actual optimization
 
-[params1 bhat], fval % true and final estimated parameter, final cost
+OPT = optimset('MaxIter', 3); % options
+f = @(x)costfun(x, y, t, U); % anonymous function for passing extra input arguments to the costfunction
+[params_hat, fval]= lsqnonlin(f, params_init, -Inf, Inf, OPT); % actual optimization
+
+% [params_init params_hat], fval % true and final estimated parameter, final cost
 
 figure(3);
-params = params1;
-y1 = sim('system_model_test', t, [], theta_init);
+params = params_init;
+y1 = sim('system_model_biased', t, [], U);
 
-params = bhat;
-y2 = sim('system_model', t, [], theta_init);
-params = params1;
-y3 = sim('system_model', t, [], theta_init);
+params = params_hat;
+y2 = sim('system_model', t, [], U);
+params = params_init;
+y3 = sim('system_model', t, [], U);
 
-plot(y2.tout, y1.yout{2}.Values.Data)
+plot(y1.tout, y1.yout{2}.Values.Data)
 hold on
 plot(y2.tout, y2.yout{2}.Values.Data)
 plot(y3.tout, y3.yout{2}.Values.Data)
-legend({'1','2', '3'});
+legend({'biased model', 'ideal model with init param', 'ideal model with init param hat'});
 
-function e = costfun(x, y, t, theta_init, params1)
-% cost function for nonlinear parameter tuning
-% x contains the candidate parameters, U is the experimental input signal
-% and y is the experiemental output signal
+function e = costfun(x, y, t, U)
 
-assignin('base','params_init', x);              % assign bhat in workspace
+assignin('base', 'params_hat', x);              % assign bhat in workspace
+x
 params = x;
-ym = sim('system_model', t, [], theta_init);
+% params
+ym = sim('system_model', t, [], U);
 
-ym = ym.yout{2}.Values.Data;
-% simulate nonlinear model using current candidate parameter
-                                        % the nonlinear model is built on
-                                        % top of the real system, but of
-                                        % course in this case there is no
-                                        % noise
-params = params1;
-y = sim('system_model_test', t, [], theta_init);
-y = y.yout{2}.Values.Data;
+ym = [ym.yout{1}.Values.Data ym.yout{2}.Values.Data];
 
-e = y - ym;                               % residual (error)
+e = (y - ym);                               % residual (error)
+% sum(e)
 
-% you can comment the below line to speed up
-% figure(4); stairs(t,[y ym]);           % intermediate fit
-%pause
 end
