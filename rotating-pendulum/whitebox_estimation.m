@@ -4,7 +4,7 @@ close all
 t = 0 : 0.001 : 10;
 U = [0 0];
 init_theta_1 = pi; init_theta_2 = pi/2;
-cl
+
 SIMULATION = true;
 
 if SIMULATION == true
