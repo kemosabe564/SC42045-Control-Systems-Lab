@@ -2,17 +2,18 @@ clear
 close all
 
 t = 0 : 0.001 : 10;
-U = [0 0];
+U = [0 1];
 init_theta_1 = pi; init_theta_2 = pi/2;
 
 SIMULATION = true;
 
 if SIMULATION == true
     % generate the biased one
-    y = sim('system_model_biased', t, [], U);
+    y = sim('system_model_biased_2021', t, [], U);
     y = [y.yout{1}.Values.Data y.yout{2}.Values.Data];
 end
 
+% [xpend, xbeam] = one_run();
 
 params_init = [-0.04, 0.06, 0.074, 0.00002, 4.8, 0.0002, 50, 0.03];
 % params_lb = [-0.5, 0.06, -0.5, 0.00002, 0, 0.0002, 0, 0];
@@ -36,10 +37,10 @@ figure(1);
 a = y';
 params = params_hat;
 U1 = [U params];
-y2 = sim('system_model', t, [], U1);
+y2 = sim('system_model_2021', t, [], U1);
 params = params_init;
 U1 = [U params];
-y3 = sim('system_model', t, [], U1);
+y3 = sim('system_model_2021', t, [], U1);
 
 plot(t, a(2,:))
 hold on
@@ -54,11 +55,13 @@ assignin('base', 'params_hat', x);              % assign bhat in workspace
 params = x;
 % params
 U = [U params];
-ym = sim('system_model', t, [], U);
+ym = sim('system_model_2021', t, [], U);
 
 ym = [ym.yout{1}.Values.Data ym.yout{2}.Values.Data];
 
-e = (y(:, 2) - ym(:, 2));                               % residual (error)
+% e = (y(:, 1) - ym(:, 1));                               % residual (error)
+e = y - ym;
+
 % sum(e)
-figure(2); stairs(t, [y(:, 2) ym(:, 2)]); 
+figure(2); stairs(t, [y(:, 1) ym(:, 1)]); 
 end
