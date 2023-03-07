@@ -49,20 +49,4 @@ function [xpend, xbeam] = one_run()
     toc;
 
 
-    load("calib_data\adin_gain.mat");
-    load("calib_data\adin_offs.mat");
-    
-    % figure(1); stairs([xpend]'); ylabel('Beam, Pendulum');
-%     xpend = xpend /pi * 180;
-%     xbeam = xbeam /pi * 180;    
-%     xpend = (xpend - adin_offs(2)) / adin_gain(2);
-%     xbeam = (xbeam - adin_offs(1)) / adin_gain(1);
-%     xpend = (xpend - 60) / 0.84 - 21;
-%     xbeam = (xbeam - 69) / 0.81;
-
-
-
-    figure(3); stairs([xbeam; xpend]'); ylabel('Beam, Pendulum');
-    sum(xbeam)/steps
-    sum(xpend)/steps
 end
