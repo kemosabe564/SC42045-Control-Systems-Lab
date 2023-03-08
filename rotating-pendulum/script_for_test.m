@@ -1,34 +1,51 @@
+% clear 
+% close all
+% clc
+
+
 Period = 5000;
 NumPeriod = 2;
-Range = [-1 1];
-Band = [0.001 0.1];
+Range = [-3 3];
+Band = [0.001 0.005];
 
-[u,freq] = idinput([Period 1 NumPeriod], 'sine', Band, Range, 20);
+[u,freq] = idinput([Period 1 NumPeriod], 'sine', Band, Range, 5);
 
 
 % Sample time in hours
 Ts = 0.001; 
+Fs = 1 / Ts;
 freq = freq/Ts
 t = Ts : Ts : 10;
 plot(t', u, '.')
+
+L = 10000;
 
 figure;
 u1 = iddata([], u, Ts, 'TimeUnit', 'seconds');
 plot(u1)
 
-params_hat = [-0.04, 0.077, 0.074, 0.00004, 4.8, 0.00004, 50, 0.03];
+[xbeam, xpend] = one_run(u);
 
 
-% t1 = 0 : Ts : Ts;
-% init_theta_1 = pi; init_theta_2 = pi/2;
-% y = [init_theta_1 init_theta_2];
-% for i = 1 : 300
-%     U = [0 1 params_hat];
-%     init_theta_1 = y(i, 1); init_theta_2 = y(i, 2);
-%     y3 = sim('system_model_2021', t1, [], U);
-%     
-%     temp = [y3.yout{1}.Values.Data(end) y3.yout{2}.Values.Data(end)]
-%     
-%     y = [y; temp]
-% end
 
+
+Y = fft(xbeam);
+
+P2 = abs(Y/L);
+P1 = P2(1:L/2+1);
+P1(2:end-1) = 2*P1(2:end-1);
+
+f = Fs*(0:(L/2))/L;
+figure;
+plot(f,P1) 
+title("Single-Sided Amplitude Spectrum of X(t)")
+xlabel("f (Hz)")
+ylabel("|P1(f)|")
+
+figure;
+pwelch(xbeam,[],[],[],Fs); %[] length of window to be used
+
+
+save('xbeam.mat', 'xbeam');
+save('xpend.mat', 'xpend');
+save('u.mat', 'u');

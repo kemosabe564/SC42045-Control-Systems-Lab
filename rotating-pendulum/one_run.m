@@ -1,4 +1,4 @@
-function [xpend, xbeam] = one_run()
+function [xpend, xbeam] = one_run(u)
 
 
 %     close all;
@@ -31,7 +31,7 @@ function [xpend, xbeam] = one_run()
     bt = toc;
     for X=1:steps
 
-        fugiboard('Write', h, 0, 1, [1.0 0.0]);
+        fugiboard('Write', h, 0, 1, [u(X) 0.0]);
         data = fugiboard('Read', h);
         xstat(X) = data(1);
         xreltime(X) = data(2);
@@ -48,5 +48,14 @@ function [xpend, xbeam] = one_run()
 
     toc;
 
+    figure(1); stairs([xpos1; xpos2]'); ylabel('Position1, Position2');
+    figure(2); stairs(xcurr); ylabel('Current');
+    figure(3); stairs([xbeam; xpend]'); ylabel('Beam, Pendulum');
+    figure(4); stairs(xdigin); ylabel('DigIN');
+% 
+%     load("calib_data\adin_gain.mat")
+%     load("calib_data\adin_offs.mat")
+%     xpend = (xpend - adin_offs(2)) / adin_gain(2);
+%     xbeam = (xbeam - adin_offs(1)) / adin_gain(1);
 
 end
