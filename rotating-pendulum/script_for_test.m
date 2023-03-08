@@ -1,30 +1,33 @@
-% clear 
-% close all
-% clc
-
+clear 
+close all
+clc
+L = 20000;
 
 Period = 5000;
-NumPeriod = 2;
-Range = [-3 3];
-Band = [0.001 0.005];
+NumPeriod = L + Period / Period;
+Range = [-1 1];
+Band = [0.001 0.01];
 
-[u,freq] = idinput([Period 1 NumPeriod], 'sine', Band, Range, 5);
+% [u,freq] = idinput([Period 1 NumPeriod], 'sine', Band, Range, 2);
 
-
+[u,freq] = idinput(L + Period, 'prbs', Band, Range, 2);
+% u = idinput(L);
 % Sample time in hours
 Ts = 0.001; 
 Fs = 1 / Ts;
-freq = freq/Ts
-t = Ts : Ts : 10;
-plot(t', u, '.')
+freq = freq/Ts;
+t = Ts : Ts : L/1000;
+u = u(Period : end);
+% plot(t', u, '.')
 
-L = 10000;
+
 
 figure;
 u1 = iddata([], u, Ts, 'TimeUnit', 'seconds');
 plot(u1)
 
-[xbeam, xpend] = one_run(u);
+
+[xbeam, xpend] = one_run(u, L);
 
 
 

@@ -1,4 +1,4 @@
-function [xpend, xbeam] = one_run(u)
+function [xpend, xbeam] = one_run(u, L)
 
 
 %     close all;
@@ -17,7 +17,7 @@ function [xpend, xbeam] = one_run(u)
     
     pause(0.1); % give relay some time to act
     
-    steps = 10000;
+    steps = L;
     
     xstat = zeros(1,steps);
     xreltime = zeros(1,steps);
