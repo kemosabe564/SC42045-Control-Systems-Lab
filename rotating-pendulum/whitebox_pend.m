@@ -2,8 +2,8 @@ clc
 clear
 close all
 
-load("white-box data\1\xbeam.mat")
-load("white-box data\1\xpend.mat")
+load("white-box data\wb_pend\xbeam.mat")
+load("white-box data\wb_pend\xpend.mat")
 load("calib_data\adin_gain.mat")
 load("calib_data\adin_offs.mat")
 
@@ -65,6 +65,8 @@ plot(y3.tout, y3.yout{2}.Values.Data)
 xlabel("t"); ylabel("radian")
 title("whitebox estimation comparison")
 legend({'real measurement', 'expected value with param hat', 'expected value with init param'});
+
+% params_hat = [-0.04, 0.077, 0.074, 0.00004, 4.8, 0.00004, 50, 0.03];
 
 
 function e = costfun(x, y, t, U)
