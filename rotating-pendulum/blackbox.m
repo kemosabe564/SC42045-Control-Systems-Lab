@@ -75,3 +75,6 @@ Phiy = squeeze(Gmag).^2.*Phiu+Phiv;
 % hold on; 
 % loglog(w,Phiv./Phiu,'linewidth',2); 
 % loglog(w,Phiv./Phiy,'linewidth',2);
+
+
+% validation
