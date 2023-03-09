@@ -5,9 +5,9 @@ clc
 load("sys.mat")
 
 
-load("black-box data\round 4\xbeam.mat")
-load("black-box data\round 4\xpend.mat")
-load("black-box data\round 4\u.mat")
+load("black-box data\round 2\xbeam.mat")
+load("black-box data\round 2\xpend.mat")
+load("black-box data\round 2\u.mat")
 
 load("calib_data\adin_gain.mat")
 load("calib_data\adin_offs.mat")
@@ -15,7 +15,9 @@ load("calib_data\adin_offs.mat")
 xpend = (xpend - adin_offs(2)) / adin_gain(2);
 xbeam = (xbeam - adin_offs(1)) / adin_gain(1);
 
-u = u(1:20000);
+L = 10000;
+
+u = u(1:L);
 
 
 y = xbeam;

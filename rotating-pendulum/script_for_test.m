@@ -1,14 +1,33 @@
 clear 
 close all
 clc
-L = 20000;
+
+load("noise measurement\xbeam.mat")
+load("noise measurement\xpend.mat")
+
+load("calib_data\adin_gain.mat")
+load("calib_data\adin_offs.mat")
+xbeam0 = xbeam;
+xpend0 = xpend;
+% xpend = xpend - mean(xpend);
+% xbeam = xbeam - mean(xbeam);
+
+% xpend = (xpend - adin_offs(2)) / adin_gain(2);
+% xbeam = (xbeam - adin_offs(1)) / adin_gain(1);
+
+noisePower_beam = sum(abs(xbeam0 - mean(xbeam0)).^2) / length(xbeam0);
+
+noisePower_pend = sum(abs(xpend0 - mean(xpend0)).^2) / length(xpend0);
+
+
+L = 10000;
 
 Period = 5000;
 NumPeriod = L / Period + Period / Period;
-Range = [-1.5 1.5];
-Band = [0.001 0.02];
+Range = [-2 2];
+Band = [0.0005 0.011];
 
-[u,freq] = idinput([Period 1 NumPeriod], 'sine', Band, Range, 10);
+[u,freq] = idinput([Period 1 NumPeriod], 'sine', Band, Range, 15);
 
 % [u,freq] = idinput(L + Period, 'prbs', Band, Range, 2);
 % u = idinput(L);
@@ -52,3 +71,10 @@ pwelch(xbeam,[],[],[],Fs); %[] length of window to be used
 save('xbeam.mat', 'xbeam');
 save('xpend.mat', 'xpend');
 save('u.mat', 'u');
+
+
+
+
+sigPower = sum(abs(xbeam - (xbeam0-mean(xbeam0))).^2) / length((xbeam - (xbeam0-mean(xbeam0))));
+SNR_10 = 10 * log10 (sigPower/noisePower_beam);
+SNR = snr(xbeam - (xbeam0-mean(xbeam0)), (xbeam0-mean(xbeam0)));
