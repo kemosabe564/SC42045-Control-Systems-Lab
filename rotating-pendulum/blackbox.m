@@ -35,7 +35,7 @@ data = iddata(y, u);
 % resid(data, OE.sys) % G is perfect but H is not
 
 % use BJ model
-BJ.sys = bj(data, [4, 3, 3, 4, 1]);
+BJ.sys = bj(data, [6, 3, 3, 6, 2]);
 figure
 resid(data, BJ.sys) % all are perfect
 
