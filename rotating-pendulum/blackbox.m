@@ -2,9 +2,9 @@ clear
 close all
 % clc
 
-load("black-box data\round 6\xbeam.mat")
-load("black-box data\round 6\xpend.mat")
-load("black-box data\round 6\u.mat")
+load("black-box data\round 3\xbeam.mat")
+load("black-box data\round 3\xpend.mat")
+load("black-box data\round 3\u.mat")
 
 load("calib_data\adin_gain.mat")
 load("calib_data\adin_offs.mat")
@@ -26,7 +26,7 @@ hold on
 plot(u,'b')
 grid on
 
-data=iddata(y, u);
+data = iddata(y, u);
 
 
 % use OE model
@@ -41,12 +41,12 @@ resid(data, BJ.sys) % all are perfect
 
 sys = BJ.sys;
 
-bode(sys);
-step(sys);
-zpk(sys);
-d2c(sys);
+bode(sys)
+step(sys)
+zpk(sys)
+d2c(sys)
 
-compare(data, sys);
+compare(data, sys)
 
 y_est = sim(sys, data(:, [], :));
 
@@ -58,17 +58,17 @@ value = fpe(sys)
 
 
 
-M = bj([y u],[4 3 3 4 1]); 
-[A,B,C,D,F] = polydata(M);  % Retrieve polynomial coeff
-H = tf(C,D,1); 
-G = tf(B,F,1); 
-[Phiu,w] = pwelch(u);  % Estimate input power spectrum
-[Gmag,~] = bode(G,w);
-[Hmag,~] = bode(H,w);  
-
-sigma_ehat = M.Report.Fit.MSE; % Estimate variance of e(t)
-Phiv = squeeze(Hmag).^2*sigma_ehat; 
-Phiy = squeeze(Gmag).^2.*Phiu+Phiv;
+% M = bj([y u],[4 3 3 4 1]); 
+% [A,B,C,D,F] = polydata(M);  % Retrieve polynomial coeff
+% H = tf(C,D,1); 
+% G = tf(B,F,1); 
+% [Phiu,w] = pwelch(u);  % Estimate input power spectrum
+% [Gmag,~] = bode(G,w);
+% [Hmag,~] = bode(H,w);  
+% 
+% sigma_ehat = M.Report.Fit.MSE; % Estimate variance of e(t)
+% Phiv = squeeze(Hmag).^2*sigma_ehat; 
+% Phiy = squeeze(Gmag).^2.*Phiu+Phiv;
 
 % figure;
 % loglog(w,Phiv,'linewidth',2); 
@@ -78,3 +78,5 @@ Phiy = squeeze(Gmag).^2.*Phiu+Phiv;
 
 
 % validation
+
+save('sys.mat', 'sys');
