@@ -4,18 +4,18 @@ clc
 L = 20000;
 
 Period = 5000;
-NumPeriod = L + Period / Period;
-Range = [-1 1];
-Band = [0.001 0.01];
+NumPeriod = L / Period + Period / Period;
+Range = [-1.5 1.5];
+Band = [0.001 0.02];
 
-% [u,freq] = idinput([Period 1 NumPeriod], 'sine', Band, Range, 2);
+[u,freq] = idinput([Period 1 NumPeriod], 'sine', Band, Range, 10);
 
-[u,freq] = idinput(L + Period, 'prbs', Band, Range, 2);
+% [u,freq] = idinput(L + Period, 'prbs', Band, Range, 2);
 % u = idinput(L);
 % Sample time in hours
 Ts = 0.001; 
 Fs = 1 / Ts;
-freq = freq/Ts;
+freq = freq/Ts
 t = Ts : Ts : L/1000;
 u = u(Period : end);
 % plot(t', u, '.')
