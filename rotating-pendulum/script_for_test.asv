@@ -24,9 +24,9 @@ L = 10000;
 
 Period = 5000;
 NumPeriod = L / Period + Period / Period;
-Range_sin = [-2 2];
+Range_sin = [-1.6 1.5];
 Range_prbs = [-0.8 0.8];
-Band = [0.0001 0.009];
+Band = [0.0005 0.011];
 
 [u,freq] = idinput([Period 1 NumPeriod], 'sine', Band, Range_sin, 20);
 
@@ -52,22 +52,22 @@ plot(u1)
 
 
 
-% Y = fft(xbeam);
-% 
-% P2 = abs(Y/L);
-% P1 = P2(1:L/2+1);
-% P1(2:end-1) = 2*P1(2:end-1);
-% 
-% f = Fs*(0:(L/2))/L;
-% figure;
-% plot(f,P1) 
-% title("Single-Sided Amplitude Spectrum of X(t)")
-% xlabel("f (Hz)")
-% ylabel("|P1(f)|")
-% 
-% figure;
-% pwelch(xbeam,[],[],[],Fs); %[] length of window to be used
-% 
+Y = fft(xbeam);
+
+P2 = abs(Y/L);
+P1 = P2(1:L/2+1);
+P1(2:end-1) = 2*P1(2:end-1);
+
+f = Fs*(0:(L/2))/L;
+figure;
+plot(f,P1) 
+title("Single-Sided Amplitude Spectrum of X(t)")
+xlabel("f (Hz)")
+ylabel("|P1(f)|")
+
+figure;
+pwelch(xbeam,[],[],[],Fs); %[] length of window to be used
+
 
 save('xbeam.mat', 'xbeam');
 save('xpend.mat', 'xpend');

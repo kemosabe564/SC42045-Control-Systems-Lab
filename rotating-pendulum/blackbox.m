@@ -2,19 +2,19 @@ clear
 close all
 % clc
 
-load("black-box data\round 1\xbeam.mat")
-load("black-box data\round 1\xpend.mat")
-load("black-box data\round 1\u.mat")
+load("black-box data\round 2\xbeam.mat")
+load("black-box data\round 2\xpend.mat")
+load("black-box data\round 2\u.mat")
 
-load("calib_data\adin_gain.mat")
-load("calib_data\adin_offs.mat")
-
-xpend = (xpend - adin_offs(2)) / adin_gain(2);
-xbeam = (xbeam - adin_offs(1)) / adin_gain(1);
+% load("calib_data\adin_gain.mat")
+% load("calib_data\adin_offs.mat")
+% 
+% xpend = (xpend - adin_offs(2)) / adin_gain(2);
+% xbeam = (xbeam - adin_offs(1)) / adin_gain(1);
 L = 10000;
 u = u(1:L);
 
-y = xbeam;
+y = xpend;
 y = unwrap(y);
 figure
 y = y';
@@ -30,12 +30,14 @@ data = iddata(y, u);
 
 
 % use OE model
-% OE.sys = oe(data, [5, 5, 1]);
+% OE.sys = oe(data, [4, 5, 1]);
 % figure
 % resid(data, OE.sys) % G is perfect but H is not
 
 % use BJ model
-BJ.sys = bj(data, [7, 7, 9, 9, 1]);
+
+
+BJ.sys = bj(data, [6, 3, 3, 7, 0]);
 figure
 resid(data, BJ.sys) % all are perfect
 
@@ -44,17 +46,19 @@ sys = BJ.sys;
 bode(sys)
 step(sys)
 zpk(sys)
-d2c(sys)
+% d2c(sys)
 
 compare(data, sys)
 
 y_est = sim(sys, data(:, [], :));
 
-cost_func = 'NRMSE';
+cost_func = 'MSE';
 y1 = y_est.y;
 yref = data.y;
 fit = goodnessOfFit(y1, yref, cost_func)
 value = fpe(sys)
+
+
 % t = 0:0.001:(10-0.001);
 % figure;
 % plot(t', [y y_est.y])

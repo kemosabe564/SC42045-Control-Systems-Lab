@@ -54,3 +54,6 @@ plot(t, u)
 % sigPower = sum(abs(xbeam1 - xbeam).^2) / length((xbeam1 - xbeam));
 % 
 % SNR_10 = 10 * log10 (sigPower/noisePower_beam);
+
+% The maximum frequency is 35 Hz, the suitable amplitude is 1.5 for keeping the
+% error smaller than 1% and maintaining SNR larger than 50

@@ -5,9 +5,9 @@ clc
 load("sys.mat")
 
 
-load("black-box data\round 2\xbeam.mat")
-load("black-box data\round 2\xpend.mat")
-load("black-box data\round 2\u.mat")
+load("black-box data\round 3\xbeam.mat")
+load("black-box data\round 3\xpend.mat")
+load("black-box data\round 3\u.mat")
 
 load("calib_data\adin_gain.mat")
 load("calib_data\adin_offs.mat")
@@ -20,7 +20,7 @@ L = 10000;
 u = u(1:L);
 
 
-y = xbeam;
+y = xpend;
 y = unwrap(y);
 figure
 y = y';
