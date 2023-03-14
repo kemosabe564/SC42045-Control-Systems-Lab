@@ -4,7 +4,7 @@ clc
 
 syms theta_1 theta_2 theta_d_1 theta_d_2 u T_d
 
-init_theta_1 = pi; init_theta_2 = 0;
+init_theta_1 = 1.5*pi; init_theta_2 = 0.1;
 
 % constant variables
 g = 9.81;
@@ -121,9 +121,9 @@ A
 
 B
 
-A = subs(A, [theta_1 theta_2 theta_d_1 theta_d_2], [init_theta_1, 0, init_theta_2, 0])
+A = subs(A, [theta_1 theta_2 theta_d_1 theta_d_2], [init_theta_1, init_theta_2, 0, 0])
 
-B = subs(B, [theta_1 theta_2 theta_d_1 theta_d_2], [init_theta_1, 0, init_theta_2, 0])
+B = subs(B, [theta_1 theta_2 theta_d_1 theta_d_2], [init_theta_1, init_theta_2, 0, 0])
 % 
 A = double(A)
 
