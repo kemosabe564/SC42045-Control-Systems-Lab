@@ -107,8 +107,8 @@ A = [0 1 0 0;
     0 0 0 1;
     A_4;]; 
 
-B_2 = diff(theta_dd_B(1), 'theta_d_1');
-B_4 = diff(theta_dd_B(2), 'theta_d_2');
+B_2 = diff(theta_dd_B(1), 'u');
+B_4 = diff(theta_dd_B(2), 'u');
 
 B = [0;
      B_2;
