@@ -5,9 +5,9 @@ clc
 load("sys.mat")
 
 
-load("black-box data\round 3\xbeam.mat")
-load("black-box data\round 3\xpend.mat")
-load("black-box data\round 3\u.mat")
+load("black-box data\round 7\xbeam.mat")
+load("black-box data\round 7\xpend.mat")
+load("black-box data\round 7\u.mat")
 
 load("calib_data\adin_gain.mat")
 load("calib_data\adin_offs.mat")
