@@ -4,7 +4,7 @@ clc
 
 syms theta_1 theta_2 theta_d_1 theta_d_2 u T_d
 
-init_theta_1 = pi; init_theta_2 = 0;
+init_theta_1 = pi; init_theta_2 = pi/2;
 
 % constant variables
 g = 9.81;
@@ -94,10 +94,10 @@ theta_dd
 % plot(t, y(:, 1)')
 % f_2 = theta_dd(1);
 % f_4 = theta_dd(2);
-dtdd_dt1 = diff(theta_dd_A, 'theta_1');
-dtdd_dt2 = diff(theta_dd_A, 'theta_2');
-dtdd_dtd1 = diff(theta_dd_A, 'theta_d_1');
-dtdd_dtd2 = diff(theta_dd_A, 'theta_d_2');
+dtdd_dt1 = diff(theta_dd_A, 'theta_1')
+dtdd_dt2 = diff(theta_dd_A, 'theta_2')
+dtdd_dtd1 = diff(theta_dd_A, 'theta_d_1')
+dtdd_dtd2 = diff(theta_dd_A, 'theta_d_2')
 
 A_2 = [dtdd_dt1(1) dtdd_dtd1(1) dtdd_dt2(1) dtdd_dtd2(1)];
 A_4 = [dtdd_dt1(2) dtdd_dtd1(2) dtdd_dt2(2) dtdd_dtd2(2)];
@@ -107,29 +107,10 @@ A = [0 1 0 0;
     0 0 0 1;
     A_4;]; 
 
-B_2 = diff(theta_dd_B(1), 'theta_d_1');
-B_4 = diff(theta_dd_B(2), 'theta_d_2');
+B_2 = theta_dd_B
+B_4 = 0;
 
 B = [0;
-     B_2;
+     ?;
      0;
-     B_4;];
-
-x0 = [init_theta_1; 0; init_theta_2; 0]; %[theta_1; theta_1_d; theta_2; _theta_2_d] (?????)
-
-A
-
-B
-
-A = subs(A, [theta_1 theta_2 theta_d_1 theta_d_2], [init_theta_1, 0, init_theta_2, 0])
-
-B = subs(B, [theta_1 theta_2 theta_d_1 theta_d_2], [init_theta_1, 0, init_theta_2, 0])
-% 
-A = double(A)
-
-B = double(B)
-
-C = [1 0 0 0;
-     0 0 1 0;]; % because we want to see theta_1 and theta_2
-
-D = zeros(2,1);
+     ?;]
