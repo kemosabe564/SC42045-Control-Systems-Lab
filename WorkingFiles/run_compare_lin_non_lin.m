@@ -1,5 +1,8 @@
 clear,clc
 %% load the linear system
+
+linearize_operating_point
+
 load('System.mat')
 
 %% set initial conditions
@@ -14,10 +17,20 @@ T_0 = x_op(5);
 
 RunTime = 10;
 time_step = 0.001;
-t = 0:0.05:10;
+t = 0 : 0.001 : 10;
+f = 2;
 
-u = 0.01*sin(2*pi*t); % test input!
+u = 0.5*sin(2*pi*f*t); % test input!
+
+% u = [u; zeros(1, length(t))];
 
 simulink_input = timeseries(u,t); 
 
-%sim('compare_lin_non_lin.slx')
+sinulink_output = sim('compare_lin_non_lin.slx');
+
+%% plot the result
+t_in = sinulink_output.tout;
+y1 = sinulink_output.yout{3}.Values.Data;
+
+
+plot(t_in, y1)
