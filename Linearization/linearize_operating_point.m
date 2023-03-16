@@ -55,7 +55,7 @@ G = [-g_1 * sin(theta_1) - g_2 * sin(theta_1 + theta_2);
 
 %% rewrite to theta_dd = f(x,u)
 M_inv = inv(M);
-theta_dd = M_inv * T_vec - M_inv * C * theta_d_vec- M_inv * G;  %#ok<MINV> 
+theta_dd = M_inv * T_vec - M_inv * C * theta_d_vec - M_inv * G;  %#ok<MINV> 
 
 disp(theta_dd)
 
