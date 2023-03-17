@@ -2,30 +2,6 @@ clear
 close all
 clc
 
-% load("noise measurement\xbeam.mat")
-% load("noise measurement\xpend.mat")
-% 
-% load("calib_data\adin_gain.mat")
-% load("calib_data\adin_offs.mat")
-% 
-% % xpend = xpend - mean(xpend);
-% % xbeam = xbeam - mean(xbeam);
-% 
-% xpend = (xpend - adin_offs(2)) / adin_gain(2);
-% xbeam = (xbeam - adin_offs(1)) / adin_gain(1);
-% 
-% noisePower_beam = sum(abs(xbeam).^2) / length(xbeam);
-% 
-% noisePower_pend = sum(abs(xpend).^2) / length(xpend);
-
-
-
-% t = 0 : 0.001 : 2*pi;
-% y1 = 0.99 * t;
-% y2 = sin(t);
-% 
-% plot(t, [y1; y2]);
-% intersect(y1, y2)
 y = 0.25;
 y = y / pi * 180
 y = 0.37;

@@ -47,7 +47,7 @@ u1 = iddata([], u, Ts, 'TimeUnit', 'seconds');
 plot(u1)
 
 
-[xpend, xbeam] = one_run(u, L);
+[xpend, xbeam] = one_single_run(u, L);
 
 
 

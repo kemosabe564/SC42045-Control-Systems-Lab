@@ -1,4 +1,6 @@
 
+init_fugi
+
 %TODO: pos1
 
 % we could use the following to create the effect of stop and continue
@@ -87,16 +89,30 @@ pend_temp_2 = pend_temp_2 / steps
 toc;
 
 % TODO: calib, get the gamma_0 and gamma_1
+% angle = gamma_1 * (voltage + gamma_0)
 % for the beam
-gamma_0_beam = beam_temp_2;
-gamma_1_beam = (beam_temp_1 - beam_temp_2) / pi;
+% gamma_0_beam = beam_temp_2;
+% gamma_1_beam = (beam_temp_1 - beam_temp_2) / pi;
+
+gamma_1_beam = pi / (beam_temp_1 - beam_temp_2);
+gamma_0_beam = -beam_temp_2;
 
 % for the pend
-gamma_0_pend = pend_temp_1;
-gamma_1_pend = (pend_temp_2 - pend_temp_1) / pi;
+% gamma_0_pend = pend_temp_1;
+% gamma_1_pend = (pend_temp_2 - pend_temp_1) / pi;
+
+gamma_1_pend = pi / (pend_temp_2 - pend_temp_1);
+gamma_0_pend = -pend_temp_1;
 
 % Sensor calibration:
 % adinoffs = -[0 0];
 % adingain = [1 1];
 adin_offs = [gamma_0_beam gamma_0_pend];
 adin_gain = [gamma_1_beam gamma_1_pend];
+
+
+adin_offs
+adin_gain
+
+save('adin_offs.mat', 'adin_offs');
+save('adin_gain.mat', 'adin_gain');

@@ -128,4 +128,4 @@ rank(obsv(A, C))
 
 % both rand are 5, it's controllable and observable
 
-subs(theta_dd, [theta_1 theta_d_1 theta_2 theta_d_2], [init_theta_1; 0; init_theta_2; 0]')
+subs(A, [theta_1 theta_d_1 theta_2 theta_d_2], x_op')

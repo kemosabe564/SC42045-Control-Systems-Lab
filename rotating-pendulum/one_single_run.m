@@ -1,4 +1,4 @@
-function [xpend, xbeam] = one_run(u, L)
+function [xpend, xbeam] = one_single_run(u, L)
 
 
 %     close all;

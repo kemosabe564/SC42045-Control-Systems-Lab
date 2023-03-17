@@ -1,4 +1,5 @@
-clear,clc
+% clear
+clc
 close all
 
 %% load the ss model
@@ -11,6 +12,8 @@ theta_d_1_0 = x_op(2);
 theta_2_0 = x_op(3);
 theta_d_2_0 = x_op(4);
 T_0 = x_op(5);
+
+x_op_relative = [0; 0; 0; 0; 0];
 
 % form a state-space model
 inputs = {'u'};
@@ -45,11 +48,11 @@ P = lyap(A, eye(5))
 
 %% pole placement
  
-P1 = -3 + 5i;
-P2 = -3 - 5i;
-P3 = -6 + 3i;
-P4 = -6 - 3i;
-P5 = -7;
+P1 = -30 + 15i;
+P2 = -30 - 15i;
+P3 = -70;
+P4 = -40;
+P5 = -10;
 J = [P1 P2 P3 P4 P5];
 clear P1 P2 P3 P4 P5
 
@@ -84,7 +87,7 @@ disp("system matrix: ")
 disp(G_)
 
 pole(G_)
-Ke = place(A_, B_, J)';
+Ke = place(A_, B_, 2*J)';
 
 %% LQR
 
