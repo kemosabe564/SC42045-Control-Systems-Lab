@@ -45,11 +45,11 @@ P = lyap(A, eye(5))
 
 %% pole placement
  
-P1 = -3 + 0.1092i;
-P2 = -3 - 0.1092i;
-P3 = -6;
-P4 = -7;
-P5 = -8;
+P1 = -3 + 5i;
+P2 = -3 - 5i;
+P3 = -6 + 3i;
+P4 = -6 - 3i;
+P5 = -7;
 J = [P1 P2 P3 P4 P5];
 clear P1 P2 P3 P4 P5
 
@@ -94,3 +94,12 @@ K_lqr = lqr(A, B, Q, R);
 
 disp("K_lqr: ")
 disp(K_lqr)
+
+A_lqr = (A - B*K_lqr);
+
+G_Lqr = ss(A_lqr, B, C, D);
+
+pole(G_Lqr)
+
+figure;
+impulse(G_Lqr, t)
