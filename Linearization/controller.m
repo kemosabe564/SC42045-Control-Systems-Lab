@@ -1,6 +1,6 @@
 % clear
-clc
-close all
+% clc
+% close all
 
 %% load the ss model
 
@@ -48,22 +48,21 @@ P = lyap(A, eye(5))
 
 %% pole placement
  
-P1 = -30 + 15i;
-P2 = -30 - 15i;
-P3 = -70;
-P4 = -40;
-P5 = -10;
+P1 = -202;
+P2 = -203;
+P3 = -204;
+P4 = -205;
+P5 = -220;
 J = [P1 P2 P3 P4 P5];
 clear P1 P2 P3 P4 P5
 
 
-K1 = place(A, B, J);
-K2 = acker(A, B, J);
+K1 = place(A, B, 1.5*J);%number in front of the J is the scaling 
 
 % both method give the same output, K1 = K2
 K = K1;
 disp('K = ');
-disp(K)
+disp(K);
 clear K1 K2
 
 Ac = (A - B*K);
@@ -87,7 +86,7 @@ disp("system matrix: ")
 disp(G_)
 
 pole(G_)
-Ke = place(A_, B_, 2*J)';
+Ke = place(A_, B_, 4*J)';%number in front of the J is the scaling 
 
 %% LQR
 
