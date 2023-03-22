@@ -1,0 +1,12 @@
+Q = diag([1e4, 1, 1e4, 1, 1]);
+
+R = 1 * eye(1);
+
+we want the first and third element to be large, because we want the x1 and x3 can go to reference as soon as possible. With a smaller R, they can go fast as well.
+
+But the Q and R can't be too small, because the K will be too large, which is not desired.
+
+
+
+
+

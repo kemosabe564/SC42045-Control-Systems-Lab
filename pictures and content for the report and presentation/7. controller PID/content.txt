@@ -1,0 +1,23 @@
+in the PID control, we follows a cascade control style.
+
+in the inner loop, the controller is for pend, we want it to be fast, so increase the abs(Kp) is a good option.
+
+in the external loop, the controller is for the beam, the raising time should less then the rising time for the internal loop, it should "wait" the pend controller, so we decrease the abs(Kp)
+
+Then we choose following parameters:
+
+internal:
+Kp = -10
+Ki = 0
+Kd = -0.02 
+
+external:
+Kp = -0.5
+Ki = 0
+Kd = -0.02
+
+The Ki will cause a drift, so we force it to be zero
+
+Then we run simulation on both linearized model and non-linear model. The result are almost the same.
+
+

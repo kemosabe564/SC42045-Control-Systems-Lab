@@ -86,7 +86,7 @@ disp("system matrix: ")
 disp(G_)
 
 pole(G_)
-Ke = place(A_, B_, 2*J)';%number in front of the J is the scaling 
+Ke = place(A_, B_, J)';%number in front of the J is the scaling 
 
 %% LQR
 

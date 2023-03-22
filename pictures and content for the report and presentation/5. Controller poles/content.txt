@@ -1,0 +1,28 @@
+P1 = -202;
+P2 = -203;
+P3 = -204;
+P4 = -205;
+P5 = -220;
+
+K1 = place(A, B, 0.15*J);
+
+We can check the impulse responce of the feekback system, and we can see that as the poles are away from the y axis the overshoot and rasing time will decrease.
+
+But this will cause the control gain K to be large, while in the real application, u = -k * x, a large k will cause the u is out of a "feasible" bound of a physical process
+
+for example 
+K1 = place(A, B, 0.5*J);
+K = 16543.8349793754	786.618614255048	7338.32415473247	365.690854345440	0.128164190761784
+K(1) is for theta 1, the input singal for theta 1 will be large since one circle is only 6.28 (2*pi)
+
+
+Then we run the simulation with a feasible one 
+K1 = place(A, B, 0.15*J);
+
+In this simulation, the setup is placed in down/down position, at t = 1, there is a impulse(last for 0.05s) on pend (a force to the pend, a impulse signal with amplitute is 2)
+
+the settling time 2% for theta 1 is 1.6s, theta 2 is 1.6s
+
+
+
+
