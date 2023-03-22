@@ -5,8 +5,8 @@ clc
 load("noise measurement\xbeam.mat")
 load("noise measurement\xpend.mat")
 
-load("calib_data\adin_gain.mat")
-load("calib_data\adin_offs.mat")
+load("calib_data\wb_adin_gain.mat")
+load("calib_data\wb_adin_offs.mat")
 xbeam0 = xbeam;
 xpend0 = xpend;
 % xpend = xpend - mean(xpend);
@@ -24,7 +24,7 @@ L = 10000;
 
 Period = 5000;
 NumPeriod = L / Period + Period / Period;
-Range_sin = [-2 2];
+Range_sin = [-1.5 1.5];
 Range_prbs = [-0.8 0.8];
 Band = [0.0001 0.009];
 

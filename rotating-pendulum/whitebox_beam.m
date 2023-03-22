@@ -2,17 +2,17 @@ clc
 clear
 close all
 
-load("calib_data\adin_gain.mat")
-load("calib_data\adin_offs.mat")
+load("calib_data\wb_adin_gain.mat")
+load("calib_data\wb_adin_offs.mat")
 
 load("white-box data\wb_beam\xbeam.mat")
 load("white-box data\wb_beam\xpend.mat")
+xbeam = unwrap(xbeam);
 
 xpend = (xpend - adin_offs(2)) / adin_gain(2);
 xbeam = (xbeam - adin_offs(1)) / adin_gain(1);
 
 t = 0 : 0.001 : 15;
-xbeam = unwrap(xbeam);
 % start_point = 639;
 % t = t(start_point: start_point + 10000) - t(start_point);
 % xpend = xpend(start_point: start_point + 10000);
@@ -29,7 +29,7 @@ SIMULATION = false;
 
 if SIMULATION == true
     % generate the biased one
-    y = sim('system_model_biased_2021', t, [], U);
+    y = sim('wb_system_model_biased_2021', t, [], U);
     y = [y.yout{1}.Values.Data y.yout{2}.Values.Data];
 else
     y = xbeam';
@@ -40,8 +40,8 @@ params_init = [-0.04, 0.06, 0.074, 0.00002, 10, 0.0002, 50, 0.03];
 
 % params_lb = [-0.5, 0.06, -0.5, 0.00002, 0, 0.0002, 0, 0];
 % params_ub = [ 0.5, 0.06,  0.5, 0.00002, 6, 0.0002, 55, 0.05];
-params_lb = [-0.1, 0.06, 0.001, 0.00002, 4.8, 0.0002, 15, 0.01];
-params_ub = [-0.001, 0.06, 0.2, 0.00002 , 60, 0.0002 , 55, 0.05];
+params_lb = [-0.1, 0.06, 0.001, 0.00002, 4.8, 0.0002, 10, 0.005];
+params_ub = [-0.001, 0.06, 0.2, 0.00002 , 40, 0.0002 , 55, 0.05];
 
 OPT = optimset('MaxIter', 25); % options
 f = @(x)costfun(x, y, t, U); % anonymous function for passing extra input arguments to the costfunction
@@ -54,10 +54,10 @@ figure(1);
 a = y';
 params = params_hat;
 U1 = [U params];
-y2 = sim('system_model_2021', t, [], U1);
+y2 = sim('wb_system_model_2021', t, [], U1);
 params = params_init;
 U1 = [U params];
-y3 = sim('system_model_2021', t, [], U1);
+y3 = sim('wb_system_model_2021', t, [], U1);
 
 plot(t, a)
 hold on
@@ -79,7 +79,7 @@ assignin('base', 'params_hat', x);              % assign bhat in workspace
 params = x;
 % params
 U = [U params];
-ym = sim('system_model_2021', t, [], U);
+ym = sim('wb_system_model_2021', t, [], U);
 
 ym = [ym.yout{1}.Values.Data ym.yout{2}.Values.Data];
 

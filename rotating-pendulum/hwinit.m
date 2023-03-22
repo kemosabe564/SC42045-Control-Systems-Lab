@@ -16,4 +16,4 @@ load("calib_data\adin_offs.mat")
 adinoffs = [adin_offs 0 0 0 0 0];    % input offset
 adingain = [adin_gain 1 1 1 1 1];     % input gain (to radians)
 
-h = 0.01;
+h = 0.001;

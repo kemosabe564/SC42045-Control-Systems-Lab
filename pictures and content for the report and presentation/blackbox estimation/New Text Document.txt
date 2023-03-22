@@ -1,0 +1,30 @@
+input signal
+
+frequency range 1.25663706143592	2.51327412287183	3.76991118430775	5.02654824574367	6.28318530717959	7.53982236861550	8.79645943005142	10.0530964914873	11.3097335529233	13.8230076757951	15.0796447372310	17.5929188601028	18.8495559215388	20.1061929829747	21.3628300444106	22.6194671058465	23.8761041672824	25.1327412287183	26.3893782901543	27.6460153515902
+
+20x frequency
+
+reason for the above freqency selection: the frequency band for the setup is 0~30 Hz, and for less swing and backlash, only 20 frequency was selected
+
+amlitude range for multisine
+
+[-1.5 1.5];
+
+reason for amplitude: the swing angle should be as less as possible to keep in the "accurate" period. And the angle shouldn't be too small since we want the SNR to be large
+
+SNR = 64.3896
+
+model for blackbox:
+
+BJ.sys = bj(data, [7, 5, 5, 7, 0]);
+
+"round 8" for model, "round 1~7" for validation
+
+model accuracy: 50.34%
+
+the validation signal is the same setup as before
+
+validation: 25.29, 26.87, 30.25, 37.91, 38.01, 40, 42.44
+
+the model is store as "sys.mat" in black box file
+

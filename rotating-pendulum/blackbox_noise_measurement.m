@@ -17,7 +17,7 @@ f1 = 2;
 u = chirp(t, 0, 5, 35);
 plot(t, u)
 
-[xbeam1, xpend1] = one_run(u, L);
+[xbeam1, xpend1] = one_single_run(u, L);
 
 % xpend1 = xpend1 - mean(xpend1);
 % xbeam1 = xbeam1 - mean(xbeam1);

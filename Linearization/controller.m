@@ -1,6 +1,6 @@
 % clear
 % clc
-% close all
+close all
 
 %% load the ss model
 
@@ -57,7 +57,7 @@ J = [P1 P2 P3 P4 P5];
 clear P1 P2 P3 P4 P5
 
 
-K1 = place(A, B, 1.5*J);%number in front of the J is the scaling 
+K1 = place(A, B, 0.1*J);%number in front of the J is the scaling 
 
 % both method give the same output, K1 = K2
 K = K1;
@@ -86,15 +86,15 @@ disp("system matrix: ")
 disp(G_)
 
 pole(G_)
-Ke = place(A_, B_, 4*J)';%number in front of the J is the scaling 
+Ke = place(A_, B_, 2*J)';%number in front of the J is the scaling 
 
 %% LQR
 
 % Q = eye(5);
 
-Q = diag([1e5, 1, 1e5, 1, 1]);
+Q = diag([1e4, 1, 1e4, 1, 1]);
 
-R = 0.1 * eye(1);
+R = 1 * eye(1);
 
 K_lqr = lqr(A, B, Q, R);
 

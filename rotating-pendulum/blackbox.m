@@ -6,11 +6,11 @@ load("black-box data\round 8\xbeam.mat")
 load("black-box data\round 8\xpend.mat")
 load("black-box data\round 8\u.mat")
 
-% load("calib_data\adin_gain.mat")
-% load("calib_data\adin_offs.mat")
-% 
-% xpend = (xpend - adin_offs(2)) / adin_gain(2);
-% xbeam = (xbeam - adin_offs(1)) / adin_gain(1);
+load("calib_data\wb_adin_gain.mat")
+load("calib_data\wb_adin_offs.mat")
+
+xpend = (xpend - adin_offs(2)) / adin_gain(2);
+xbeam = (xbeam - adin_offs(1)) / adin_gain(1);
 L = 10000;
 u = u(1:L);
 
@@ -37,7 +37,7 @@ data = iddata(y, u);
 % use BJ model
 
 
-BJ.sys = bj(data, [6, 3, 4, 7, 0]);
+BJ.sys = bj(data, [7, 5, 5, 7, 0]);
 figure
 resid(data, BJ.sys) % all are perfect
 

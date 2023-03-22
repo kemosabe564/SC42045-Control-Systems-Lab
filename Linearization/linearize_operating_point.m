@@ -18,7 +18,7 @@ m_2 = 0.05;
 % white-box parameters:
 % %params = [-0.04, 0.06, 0.074, 0.00002, 4.8, 0.00077, 50, 0.03];    %given wrong: 
 % params = [-0.001, 0.077, 0.2, 0.00002, 20.684, 0.00002, 15, 0.03];  %found via white-box
-params = [-0.001, 0.077, 0.2, 0.00002, 20.684, 0.00002, 50, 0.015];  %found via white-box
+params = [-0.0984, 0.076, 0.074, 0.000045, 28.07, 0.000045, 25.9, 0.03];  %found via white-box
 c_1_0 = params(1);
 c_2_0 = params(2);
 I_1_0 = params(3);
@@ -27,7 +27,7 @@ b_1_0 = params(5);
 b_2_0 = params(6);
 k_m_0 = params(7);
 tau_e_0 = params(8);
-
+% syms c_1_0 c_2_0 I_1_0 I_2_0 b_1_0 b_2_0 k_m_0 tau_e_0
 
 %% paper equations
 % calculate variables for in assignment matrices

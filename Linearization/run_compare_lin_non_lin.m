@@ -21,7 +21,7 @@ time_step = 0.001;
 t = 0 : 0.001 : 10;
 f = 1;
 
-u = 0.01*sin(2*pi*f*t); % test input!
+u = 0.1*sin(2*pi*f*t); % test input!
 
 % u = [u; zeros(1, length(t))];
 
@@ -32,8 +32,30 @@ sinulink_output = sim('compare_lin_non_lin.slx');
 %% plot the result
 t_in = sinulink_output.tout;
 y1 = sinulink_output.yout{1}.Values.Data;
+y2 = sinulink_output.yout{2}.Values.Data;
+y3 = sinulink_output.yout{3}.Values.Data(1,1,:);
+y4 = sinulink_output.yout{4}.Values.Data(1,1,:);
 
+y3 = y3(1,:)';
+y4 = y4(1,:)';
 figure;
 
+subplot(2,2,1)
 plot(t_in, y1)
+xlabel("t"); ylabel("\theta_1")
+title("nonlinear-model")
 
+subplot(2,2,2)
+plot(t_in, y2)
+xlabel("t"); ylabel("\theta_2")
+title("nonlinear-model")
+
+subplot(2,2,3)
+plot(t_in, y3+pi)
+xlabel("t"); ylabel("\theta_1")
+title("linear-model")
+
+subplot(2,2,4)
+plot(t_in, y4)
+xlabel("t"); ylabel("\theta_2")
+title("linear-model")

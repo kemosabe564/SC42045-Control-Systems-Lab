@@ -9,8 +9,8 @@ load("black-box data\round 7\xbeam.mat")
 load("black-box data\round 7\xpend.mat")
 load("black-box data\round 7\u.mat")
 
-load("calib_data\adin_gain.mat")
-load("calib_data\adin_offs.mat")
+load("calib_data\wb_adin_gain.mat")
+load("calib_data\wb_adin_offs.mat")
 
 xpend = (xpend - adin_offs(2)) / adin_gain(2);
 xbeam = (xbeam - adin_offs(1)) / adin_gain(1);
