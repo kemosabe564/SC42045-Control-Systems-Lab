@@ -76,6 +76,6 @@ save('u.mat', 'u');
 
 
 
-sigPower = sum(abs(xbeam - (xbeam0-mean(xbeam0))).^2) / length((xbeam - (xbeam0-mean(xbeam0))));
-SNR_10 = 10 * log10 (sigPower/noisePower_beam);
+% sigPower = sum(abs(xbeam - (xbeam0-mean(xbeam0))).^2) / length((xbeam - (xbeam0-mean(xbeam0))));
+% SNR_10 = 10 * log10 (sigPower/noisePower_beam);
 SNR = snr(xbeam - (xbeam0-mean(xbeam0)), (xbeam0-mean(xbeam0)));
