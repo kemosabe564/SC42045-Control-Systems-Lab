@@ -48,16 +48,16 @@ P = lyap(A, eye(5))
 
 %% pole placement
  
-P1 = -202;
-P2 = -203;
-P3 = -204;
-P4 = -205;
-P5 = -220;
-J = [P1 P2 P3 P4 P5];
-clear P1 P2 P3 P4 P5
+Pole1 = -202;
+Pole2 = -203;
+Pole3 = -204;
+Pole4 = -205;
+Pole5 = -220;
+J = [Pole1 Pole2 Pole3 Pole4 Pole5];
+clear Pole1 Pole2 Pole3 Pole4 Pole5
 
 
-K1 = place(A, B, 1*J);%number in front of the J is the scaling 
+K1 = place(A, B, 0.5*J);%number in front of the J is the scaling 
 
 % both method give the same output, K1 = K2
 K = K1;
@@ -86,7 +86,7 @@ disp("system matrix: ")
 disp(G_)
 
 pole(G_)
-Ke = place(A_, B_, 2*J)';%number in front of the J is the scaling 
+Ke = place(A_, B_, 1*J)';%number in front of the J is the scaling 
 
 %% LQR
 

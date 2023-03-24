@@ -1,4 +1,4 @@
-clear,clc
+% clear,clc
 close all
 %% load the linear system
 
@@ -19,9 +19,9 @@ T_0 = x_op(5);
 RunTime = 10;
 time_step = 0.001;
 t = 0 : 0.001 : 10;
-f = 1;
+f = 2;
 
-u = 0.1*sin(2*pi*f*t); % test input!
+u = 0.2*sin(2*pi*f*t); % test input!
 
 % u = [u; zeros(1, length(t))];
 
@@ -59,3 +59,7 @@ subplot(2,2,4)
 plot(t_in, y4)
 xlabel("t"); ylabel("\theta_2")
 title("linear-model")
+
+sum(y1 - y3 - pi).^2 / length(y1)
+
+sum(y2 - y4).^2 / length(y1)

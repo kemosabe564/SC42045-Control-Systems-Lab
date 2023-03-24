@@ -78,7 +78,7 @@ assignin('base', 'params_hat', x);              % assign bhat in workspace
 params = x;
 % params
 U = [U params];
-ym = sim('wb_system_model_2021', t, [], U);
+ym = sim('whitebox_nonlinear_model_2021', t, [], U);
 
 ym = [ym.yout{1}.Values.Data ym.yout{2}.Values.Data];
 

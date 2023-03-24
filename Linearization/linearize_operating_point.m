@@ -17,8 +17,9 @@ m_2 = 0.05;
 
 % white-box parameters:
 % %params = [-0.04, 0.06, 0.074, 0.00002, 4.8, 0.00077, 50, 0.03];    %given wrong: 
-params = [-0.0300000121036330, 0.0603451968350115, 0.1000000000017210, 1.00882387117299e-05, 8.27570530021582, 4.78577414601457e-05, 49.9998023466922, 0.01500000000002200];  %found via white-box
+
 params = [-0.0300000121036330, 0.0303451968350115, 0.1000000000017210, 1.00882387117299e-05, 10.27570530021582, 1.78577414601457e-05, 65.9998023466922, 0.01300000000002200];  %found via white-box
+
 c_1_0 = params(1);
 c_2_0 = params(2);
 I_1_0 = params(3);
@@ -29,14 +30,16 @@ k_m_0 = params(7);
 tau_e_0 = params(8);
 % syms c_1_0 c_2_0 I_1_0 I_2_0 b_1_0 b_2_0 k_m_0 tau_e_0
 
+params = [9.81, 0.1, 0.1, 0.125, 0.05, -0.0300000121036330, 0.0303451968350115, 0.1000000000017210, 1.00882387117299e-05, 10.27570530021582, 1.78577414601457e-05, 65.9998023466922, 0.01300000000002200];
+
 %% paper equations
 % calculate variables for in assignment matrices
-P_1 = m_1 * c_1_0 * c_1_0 + m_2 * l_1 * l_1 + I_1_0;
-P_2 = m_2 * c_2_0 * c_2_0 + I_2_0;
-P_3 = m_2 * l_1 * c_2_0;
+P1 = m_1 * c_1_0 * c_1_0 + m_2 * l_1 * l_1 + I_1_0;
+P2 = m_2 * c_2_0 * c_2_0 + I_2_0;
+P3 = m_2 * l_1 * c_2_0;
 
-g_1 = (m_1 * c_1_0 + m_2 * l_1) * g;
-g_2 = m_2 * c_2_0 * g;
+g1 = (m_1 * c_1_0 + m_2 * l_1) * g;
+g2 = m_2 * c_2_0 * g;
 
 % T = k_m_0 * u - tau_e_0 * T_d;
 
@@ -45,14 +48,14 @@ theta_d_vec = [theta_d_1; theta_d_2];
 T_vec = [T; 0];
 
 % assignment matrices
-M = [P_1 + P_2 + 2 * P_3 * cos(theta_2) P_2 + P_3 * cos(theta_2);
-    P_2 + P_3 * cos(theta_2)            P_2];
+M = [P1 + P2 + 2 * P3 * cos(theta_2) P2 + P3 * cos(theta_2);
+    P2 + P3 * cos(theta_2)            P2];
 
-C = [b_1_0 - P_3 * theta_d_2 * sin(theta_2)  -P_3 * (theta_d_1 + theta_d_2) * sin(theta_2);
-    P_3 * theta_d_1 * sin(theta_2)           b_2_0];
+C = [b_1_0 - P3 * theta_d_2 * sin(theta_2)  -P3 * (theta_d_1 + theta_d_2) * sin(theta_2);
+    P3 * theta_d_1 * sin(theta_2)           b_2_0];
 
-G = [-g_1 * sin(theta_1) - g_2 * sin(theta_1 + theta_2);
-     -g_2 * sin(theta_1 + theta_2)];
+G = [-g1 * sin(theta_1) - g2 * sin(theta_1 + theta_2);
+     -g2 * sin(theta_1 + theta_2)];
 
 %% rewrite to theta_dd = f(x,u)
 M_inv = inv(M);
