@@ -57,7 +57,7 @@ J = [P1 P2 P3 P4 P5];
 clear P1 P2 P3 P4 P5
 
 
-K1 = place(A, B, 0.1*J);%number in front of the J is the scaling 
+K1 = place(A, B, 1*J);%number in front of the J is the scaling 
 
 % both method give the same output, K1 = K2
 K = K1;
