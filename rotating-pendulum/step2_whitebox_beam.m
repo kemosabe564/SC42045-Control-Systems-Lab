@@ -106,6 +106,8 @@ t = 0 : 0.001 : 10;
 f = 1;
 u = 0.0*sin(2*pi*f*t); 
 
+% intercept the right period of data
+
 theta_2 = theta_2(2441: 2441 + 10000);
 figure(2)
 subplot(1, 2, 1)
