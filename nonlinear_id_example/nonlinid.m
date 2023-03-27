@@ -26,6 +26,6 @@ sim('nlsysid');     % this simulates the real system, which is affected by noise
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 OPT = optimset('MaxIter',25); % options
 f = @(x)costfun(x,U,y); % anonymous function for passing extra input arguments to the costfunction
-[bhat,fval]= lsqnonlin(f,bi,0,[],OPT); % actual optimization
+[bhat,fval]= lsqnonlin(f,bi,-0.1,1,OPT); % actual optimization
 
 [b bhat], fval % true and final estimated parameter, final cost

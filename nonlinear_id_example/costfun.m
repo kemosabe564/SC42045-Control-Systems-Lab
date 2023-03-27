@@ -4,6 +4,7 @@ function e = costfun(x,U,y)
 % and y is the experiemental output signal
 
 assignin('base','bhat',x);              % assign bhat in workspace
+x
 [tm,xm,ym]=sim('nlmodel',U(:,1),[],U);  % simulate nonlinear model using current candidate parameter
                                         % the nonlinear model is built on
                                         % top of the real system, but of
