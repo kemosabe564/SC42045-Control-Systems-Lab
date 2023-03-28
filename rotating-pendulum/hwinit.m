@@ -6,17 +6,21 @@
 daoutoffs = [0.00];                   % output offset
 daoutgain = 1*[-6];                   % output gain
 
-% Sensor calibration:
-% adinoffs = -[0 0];
-% adingain = [1 1];
+
 
 load("calib_data\adin_gain.mat")
 load("calib_data\adin_offs.mat")
 
-adinoffs = [adin_offs 0 0 0 0 0];    % input offset
+% % Sensor calibration:
+adin_offs = -[0 0];
+adin_gain = [1 1];
+
+adinoffs = [-adin_offs 0 0 0 0 0];    % input offset
 adingain = [adin_gain 1 1 1 1 1];     % input gain (to radians)
 
 h = 0.001;
 
 theta_1_0 = pi;
 theta_2_0 = 0;
+
+

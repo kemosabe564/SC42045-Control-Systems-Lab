@@ -6,35 +6,34 @@ close all
 RunTime = 10;
 time_step = 0.001;
 
-params = [-0.0300000121036330, 0.0813451968350115, 0.1000000000017210, 2.00882387117299e-05, 7.27570530021582, 2.78577414601457e-05, 50.9998023466922, 0.01300000000002200];  %found via white-box
+load("params.mat")
+g = params(1);
+l1 = params(2);
+l2 = params(3);
+m1 = params(4);
+m2 = params(5);
 
-g = 9.81;
-l_1 = 0.1;
-l_2 = 0.1;
-m_1 = 0.125;
-m_2 = 0.05;
+c1 = params(6);
+c2 = params(7);
+I1 = params(8);
+I2 = params(9);
+b1 = params(10);
+b2 = params(11);
+km = params(12);
+tau_e = params(13);
 
-c_1_0 = params(1);
-c_2_0 = params(2);
-I_1_0 = params(3);
-I_2_0 = params(4);
-b_1_0 = params(5);
-b_2_0 = params(6);
-k_m_0 = params(7);
-tau_e_0 = params(8);
-params = [9.81, 0.1, 0.1, 0.125, 0.05, -0.0320000121036330, 0.0813451968350115, 0.1000000000017210, 2.00882387117299e-05, 7.27570530021582, 2.78577414601457e-05, 50.9998023466922, 0.01300000000002200];
-P1 = m_1 * c_1_0 * c_1_0 + m_2 * l_1 * l_1 + I_1_0;
-P2 = m_2 * c_2_0 * c_2_0 + I_2_0;
-P3 = m_2 * l_1 * c_2_0;
+P1 = m1 * c1 * c1 + m2 * l1 * l1 + I1;
+P2 = m2 * c2 * c2 + I2;
+P3 = m2 * l1 * c2;
 
-g1 = (m_1 * c_1_0 + m_2 * l_1) * g;
-g2 = m_2 * c_2_0 * g;
+g1 = (m1 * c1 + m2 * l1) * g;
+g2 = m2 * c2 * g;
+
 
 %% load the ss model and setup
 
 % load the data
 load('step4_linearized_system.mat')
-params = [9.81, 0.1, 0.1, 0.125, 0.05, -0.0400000121036330, 0.0303451968350115, 0.1000000000017210, 1.00882387117299e-05, 10.27570530021582, 1.78577414601457e-05, 50.9998023466922, 0.01500000000002200];
 
 theta_1_0 = x_op(1);
 theta_d_1_0 = x_op(2);
@@ -77,12 +76,12 @@ Pole1 = -202;
 Pole2 = -203;
 Pole3 = -204;
 Pole4 = -205;
-Pole5 = -220;
+Pole5 = -210;
 J = [Pole1 Pole2 Pole3 Pole4 Pole5];
 clear Pole1 Pole2 Pole3 Pole4 Pole5
 
 
-K1 = place(A, B, 0.1*J);%number in front of the J is the scaling 
+K1 = place(A, B, 0.5*J);%number in front of the J is the scaling 
 
 % both method give the same output, K1 = K2
 K = K1;

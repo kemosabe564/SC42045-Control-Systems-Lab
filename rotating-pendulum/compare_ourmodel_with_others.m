@@ -2,6 +2,9 @@ clear
 close all
 clc
 
+hwinit
+
+
 RunTime = 10-0.001;
 time_step = 0.001;
 
@@ -9,10 +12,9 @@ g = 9.81;
 l_1 = 0.1;
 l_2 = 0.1;
 m_1 = 0.125;
-m_2 = 0.05;
+m_2 = 0.0487;
 
-params = [-0.1, 0.040, 0.054196, 0.0001744, 5.6468, 1.57151198693013e-05, 18.9174724265491, 0.000501346852070284];
-		
+params = [-0.0286, 0.0624, 0.0169, 6.81e-5, 6.9742, 2.89e-05, 46.1069, 0.0308];		
 
 % params = [-0.0300000121036330, 0.0813451968350115, 0.1000000000017210, 2.00882387117299e-05, 10.27570530021582, 2.78577414601457e-05, 65.9998023466922, 0.01300000000002200];  %found via white-box
 c_1_0 = params(1);
@@ -45,22 +47,22 @@ simulink_input = timeseries(u, t);
 
 init_theta_1 = pi; init_theta_2 = 0;
 
-params = [9.81, 0.1, 0.1, 0.125, 0.05, -0.1, 0.040, 0.054196, 0.0001744, 5.6468, 1.57151198693013e-05, 18.9174724265491, 0.000501346852070284];
+params = [9.81, 0.1, 0.1, 0.125, 0.0487, -0.0286, 0.0624, 0.0169, 6.81e-5, 6.9742, 2.89e-05, 46.1069, 0.0308];
 
 load("tate.mat")
 
-out = sim("nonlinear.slx");
+% out = sim("nonlinear");
 
 
 % params = [9.81, 0.1, 0.1, 0.125, 0.05, -0.0300000121036330, 0.0303451968350115, 0.1000000000017210, 1.00882387117299e-05, 10.27570530021582, 1.78577414601457e-05, 65.9998023466922, 0.01300000000002200];
 
 
-out1 = sim('nonlinear_model');
+out1 = sim('nonlinear_model1');
 
 figure;
 plot(t, out1.nonlinearSim(:, 1) + 0.01)
 hold on
-plot(t, out.nonlinearSim(:, 1))
+% plot(t, out.nonlinearSim(:, 1))
 hold on
 plot(t, tate(1, :))
 legend on
@@ -68,7 +70,7 @@ legend on
 figure;
 plot(t, out1.nonlinearSim(:, 2) + 0.01)
 hold on
-plot(t, out.nonlinearSim(:, 2))
+% plot(t, out.nonlinearSim(:, 2))
 hold on
 plot(t, tate(3, :))
 legend on

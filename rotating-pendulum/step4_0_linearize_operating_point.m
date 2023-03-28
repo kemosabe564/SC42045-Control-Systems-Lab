@@ -9,37 +9,35 @@ syms theta_1 theta_2 theta_d_1 theta_d_2 u T_d T
 
 %% parameters:
 % given correct parameters:
-g = 9.81;
-l_1 = 0.1;
-l_2 = 0.1;
-m_1 = 0.125;
-m_2 = 0.05;
+
 
 % white-box parameters:
-% %params = [-0.04, 0.06, 0.074, 0.00002, 4.8, 0.00077, 50, 0.03];    %given wrong: 
-% params_init = [9.81, 0.1, 0.1, 0.125, 0.05, -0.0300000121036330, 0.0813451968350115, 0.1000000000017210, 2.00882387117299e-05, 10.27570530021582, 2.78577414601457e-05, 65.9998023466922, 0.01300000000002200];
+load("params.mat")
+g = params(1);
+l1 = params(2);
+l2 = params(3);
+m1 = params(4);
+m2 = params(5);
 
-params = [-0.0300000121036330, 0.0813451968350115, 0.1000000000017210, 2.00882387117299e-05, 10.27570530021582, 2.78577414601457e-05, 65.9998023466922, 0.01300000000002200];  %found via white-box
-
-c_1_0 = params(1);
-c_2_0 = params(2);
-I_1_0 = params(3);
-I_2_0 = params(4);
-b_1_0 = params(5);
-b_2_0 = params(6);
-k_m_0 = params(7);
-tau_e_0 = params(8);
+c1 = params(6);
+c2 = params(7);
+I1 = params(8);
+I2 = params(9);
+b1 = params(10);
+b2 = params(11);
+km = params(12);
+tau_e = params(13);
 % syms c_1_0 c_2_0 I_1_0 I_2_0 b_1_0 b_2_0 k_m_0 tau_e_0
 
 
 %% paper equations
 % calculate variables for in assignment matrices
-P1 = m_1 * c_1_0 * c_1_0 + m_2 * l_1 * l_1 + I_1_0;
-P2 = m_2 * c_2_0 * c_2_0 + I_2_0;
-P3 = m_2 * l_1 * c_2_0;
+P1 = m1 * c1 * c1 + m2 * l1 * l1 + I1;
+P2 = m2 * c2 * c2 + I2;
+P3 = m2 * l1 * c2;
 
-g1 = (m_1 * c_1_0 + m_2 * l_1) * g;
-g2 = m_2 * c_2_0 * g;
+g1 = (m1 * c1 + m2 * l1) * g;
+g2 = m2 * c2 * g;
 
 % T = k_m_0 * u - tau_e_0 * T_d;
 
@@ -51,8 +49,8 @@ T_vec = [T; 0];
 M = [P1 + P2 + 2 * P3 * cos(theta_2) P2 + P3 * cos(theta_2);
     P2 + P3 * cos(theta_2)            P2];
 
-C = [b_1_0 - P3 * theta_d_2 * sin(theta_2)  -P3 * (theta_d_1 + theta_d_2) * sin(theta_2);
-    P3 * theta_d_1 * sin(theta_2)           b_2_0];
+C = [b1 - P3 * theta_d_2 * sin(theta_2)  -P3 * (theta_d_1 + theta_d_2) * sin(theta_2);
+    P3 * theta_d_1 * sin(theta_2)           b2];
 
 G = [-g1 * sin(theta_1) - g2 * sin(theta_1 + theta_2);
      -g2 * sin(theta_1 + theta_2)];
@@ -84,7 +82,7 @@ A = [0 1 0 0 0;
      A_2;
      0 0 0 1 0;
      A_4;
-     0 0 0 0 -1/tau_e_0]; 
+     0 0 0 0 -1/tau_e]; 
 
 B_2 = diff(theta_dd(1), 'u');
 B_4 = diff(theta_dd(2), 'u');
@@ -93,7 +91,7 @@ B = [0;
      B_2;
      0;
      B_4;
-     k_m_0/tau_e_0]; % from T = k_m_0 * u - tau_e_0 * T_d;
+     km/tau_e]; % from T = k_m_0 * u - tau_e_0 * T_d;
 
 % we now have the symbolic linearized matrices!
 
@@ -135,7 +133,6 @@ rank(obsv(A, C))
 
 %% compare the performance of linearized model
 
-params = [9.81, 0.1, 0.1, 0.125, 0.05, -0.0300000121036330, 0.0813451968350115, 0.1000000000017210, 2.00882387117299e-05, 10.27570530021582, 2.78577414601457e-05, 65.9998023466922, 0.01300000000002200];
 
 RunTime = 10;
 time_step = 0.001;
@@ -148,7 +145,7 @@ u = 0.1*sin(2*pi*f*t); % test input!
 
 simulink_input = timeseries(u,t); 
 
-sinulink_output = sim('step4_1_compare_lin_non_lin.slx');
+sinulink_output = sim('step4_1_compare_lin_non_lin1.mdl');
 
 %% plot the result
 t_in = sinulink_output.tout;
