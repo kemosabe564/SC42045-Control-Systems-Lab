@@ -35,7 +35,9 @@ err = y2(I:I+interval) - theta2m(tmax:tmax+interval); % Dont measure static data
 figure(2);
 clf
 hold on;
-stairs([0:1:interval],y2(I:I+interval), 'r', 'LineWidth',2);
-stairs([0:1:interval],theta2m(tmax:tmax+interval), 'b');
-legend({'theta 2', 'theta2 (estim)'})
+stairs([0:1:interval]/1000,y2(I:I+interval));
+stairs([0:1:interval]/1000,theta2m(tmax:tmax+interval));
+legend({'\theta_2', '\theta_2 estimation'})
+xlabel("Time/s"); ylabel("Angle/rad")
+title("Real-time Comparison")
 

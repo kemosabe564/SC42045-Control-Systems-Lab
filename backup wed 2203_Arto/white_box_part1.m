@@ -48,17 +48,21 @@ toc;
 
 
 %% Correct output angles after calibration
-offset = [1.185896,1.195229];
-slope = [1.208265,1.209528];
-[xbeam, xpend] = calib(xbeam, xpend, offset, slope);
+offset = [1.2028, 1.1955];
+gain = [1.2030, 1.2126];
+[xbeam, xpend] = calib(xbeam, xpend, offset, gain);
 % Unwrap data
 xbeam = unwrap(xbeam);
 xpend = unwrap(xpend);
 % Get time to start comparing
 [M,I] = max(xpend);
 %% Plot experimental outputs
-figure(1); stairs([xbeam; xpend]');
-title('Experimental output angles'); ylabel('Angles [rad]'); legend({'\theta_1', '\theta_2'}); xlabel('time [s]')
+figure(1); 
+stairs([xbeam; xpend]');
+xlabel('Time/s');
+ylabel('Angle/rad');
+title('Outputs from the Setup');
+legend({'\theta_1', '\theta_2'}); 
 
 %% Perform white box identification on theta 2
 truepars = [0.1, 0.1, 0.125, 0.05, -0.04, 0.06, 0.074, 0.00012, 4.8, 0.0002, 50, 0.03];

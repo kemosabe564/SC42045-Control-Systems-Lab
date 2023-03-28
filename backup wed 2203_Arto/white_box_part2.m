@@ -56,7 +56,10 @@ xpend = unwrap(xpend);
 
 %% Plot experimental outputs
 figure(3); hold on; stairs(tm, xbeam); stairs(tm, xpend);
-title('Experimental output angles'); ylabel('Angles [rad]'); legend({'\theta_1', '\theta_2'}); xlabel('time [s]')
+xlabel('Time/s');
+ylabel('Angle/rad');
+title('Outputs from the Setup');
+legend({'\theta_1', '\theta_2'}); 
 
 %% Perform white box identification on theta 1
 % set the initial values and the true parameters

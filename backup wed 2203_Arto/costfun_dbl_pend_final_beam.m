@@ -33,7 +33,8 @@ err = y1(I:I+interval) - theta1m(I:I+interval);
 figure(4);
 clf
 hold on;
-stairs([0:1:interval],y1(I:I+interval), 'r', 'LineWidth',2);
-stairs([0:1:interval],theta1m(I:I+interval), 'b');
-legend({'theta 1', 'theta1 (estim)'})
-
+stairs([0:1:interval]/1000, y1(I:I+interval), 'LineWidth',2);
+stairs([0:1:interval]/1000, theta1m(I:I+interval), 'LineWidth',2);
+legend({'\theta_1', '\theta_1 estimation'})
+xlabel("Time/s"); ylabel("Angle/rad")
+title("Real-time Comparison")
