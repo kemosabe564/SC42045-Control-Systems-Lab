@@ -98,7 +98,7 @@ B = [0;
 %% Linearize around operating point
 
 % operating point
-theta_1_0 = pi;
+theta_1_0 = 0;
 theta_2_0 = 0; % works for 0 or pi, why not for 0.1???
 x_op = [theta_1_0; 0; theta_2_0; 0; 0];
 

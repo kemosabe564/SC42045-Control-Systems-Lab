@@ -30,18 +30,18 @@ data = iddata(y, u);
 
 
 % use OE model
-% OE.sys = oe(data, [4, 5, 1]);
-% figure
-% resid(data, OE.sys) % G is perfect but H is not
+OE.sys = oe(data, [2, 5, 1]);
+figure
+resid(data, OE.sys) % G is perfect but H is not
 
 % use BJ model
 
 
-BJ.sys = bj(data, [7, 5, 5, 7, 0]);
-figure
-resid(data, BJ.sys) % all are perfect
+% BJ.sys = bj(data, [7, 5, 5, 7, 0]);
+% figure
+% resid(data, BJ.sys) % all are perfect
 
-sys = BJ.sys;
+sys = OE.sys;
 
 bode(sys)
 step(sys)

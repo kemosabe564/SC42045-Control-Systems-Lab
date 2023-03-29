@@ -3,7 +3,7 @@ clc
 close all
 
 %% setup for Simulink
-RunTime = 3;
+RunTime = 10;
 time_step = 0.001;
 
 load("params.mat")
@@ -54,10 +54,10 @@ disp(G)
 %% observer K design
  
 Pole1 = -70;
-Pole2 = -65;
-Pole3 = -60;
-Pole4 = -55;
-Pole5 = -50;
+Pole2 = -71;
+Pole3 = -75;
+Pole4 = -76;
+Pole5 = -72;
 J = [Pole1 Pole2 Pole3 Pole4 Pole5];
 clear Pole1 Pole2 Pole3 Pole4 Pole5
 
@@ -65,223 +65,128 @@ A_ = A';
 B_ = C';
 C_ = B';
 D_ = D';
-Ke = place(A_, B_, 3*J)';%number in front of the J is the scaling 
+Ke = place(A_, B_, 0.5*J)';%number in front of the J is the scaling 
 
 save('step5_observor.mat','Ke')
 
 
-%% test the observer
-RunTime = 5;
-time_step = 0.001;
-t = 0 : 0.001 : 10;
-f = 1;
-
-% test input
-u = 0.3*sin(2*pi*f*t); 
-
-hwinit
-
-simulink_input = timeseries(u,t); 
-
-simulink_output = sim('step5_setup_obsservor_test1.mdl');
-
-nonlin = simulink_output.nonlinear(:, :);
-obs = simulink_output.observer(:, :)';
-lin = simulink_output.linear(:, :)';
-
-figure;
-
-k = 1;
-subplot(5, 1, k);
-plot(t', obs(:, 1) - pi);
-hold on
-plot(t', nonlin(:, k) - pi);
-hold on
-plot(t', lin(:, k));
-xlabel("Time/s"); ylabel("Angle/rad")
-title("\theta_1 comparison")
-legend({'observer', 'nonlinear model', 'linear model'})
-
-k = 2;
-subplot(5, 1, k);
-plot(t', obs(:, 1));
-hold on
-plot(t', nonlin(:, k));
-hold on
-plot(t', lin(:, k));
-xlabel("Time/s"); ylabel("Angle/rad")
-title("\theta_1 dot comparison")
-legend({'observer', 'nonlinear model', 'linear model'})
-
-k = 3;
-subplot(5, 1, k);
-plot(t', obs(:, 1));
-hold on
-plot(t', nonlin(:, k));
-hold on
-plot(t', lin(:, k));
-xlabel("Time/s"); ylabel("Angle/rad")
-title("\theta_2 comparison")
-legend({'observer', 'nonlinear model', 'linear model'})
-
-k = 4;
-subplot(5, 1, k);
-plot(t', obs(:, 1));
-hold on
-plot(t', nonlin(:, k));
-hold on
-plot(t', lin(:, k));
-xlabel("Time/s"); ylabel("Angle/rad")
-title("\theta_2 dot comparison")
-legend({'observer', 'nonlinear model', 'linear model'})
-
-k = 5;
-subplot(5, 1, k);
-plot(t', obs(:, 1));
-hold on
-plot(t', nonlin(:, k));
-hold on
-plot(t', lin(:, k));
-xlabel("Time/s"); ylabel("Angle/rad")
-title("T comparison")
-legend({'observer', 'nonlinear model', 'linear model'})
-
-
+% %% test the observer
+% RunTime = 1;
+% time_step = 0.001;
+% t = 0 : time_step : RunTime;
+% f = 1;
 % 
-% figure;
-% subplot(2, 2, 1)
-% plot(t, y1(:, 1)' - pi)
-% xlabel("t"); ylabel("\theta_1")
-% title("nonlinear-model")
+% % pretest
 % 
-% subplot(2, 2, 2)
-% plot(t, y1(:, 2)')
-% xlabel("t"); ylabel("\theta_2")
-% title("nonlinear-model")
-% 
-% subplot(2, 2, 3)
-% plot(t, y2(:, 1)')
-% xlabel("t"); ylabel("\theta_1")
-% title("observer")
-% 
-% subplot(2, 2, 4)
-% plot(t, y2(:, 2)')
-% xlabel("t"); ylabel("\theta_2")
-% title("observer")
-% 
-% 
-% % calculate the velocity
-% 
-% theta1_d_obs = sinulink_output.observer_states(:, 2);
-% theta2_d_obs = sinulink_output.observer_states(:, 4);
-% 
-% theta1_d_model = (y1(:, 1) - circshift(y1(:, 1), 1)) / 0.001;
-% theta2_d_model = (y1(:, 2) - circshift(y1(:, 2), 1)) / 0.001;
-% theta1_d_model(1) = 0;
-% theta2_d_model(1) = 0;
-% figure;
-% subplot(2, 2, 1)
-% plot(t, theta1_d_model)
-% xlabel("t"); ylabel("\theta_1 dot")
-% title("model")
-% 
-% subplot(2, 2, 2)
-% plot(t, theta2_d_model)
-% xlabel("t"); ylabel("\theta_2 dot")
-% title("model")
-% 
-% subplot(2, 2, 3)
-% plot(t, theta1_d_obs)
-% xlabel("t"); ylabel("\theta_1 dot")
-% title("observer")
-% 
-% subplot(2, 2, 4)
-% plot(t, theta2_d_obs)
-% xlabel("t"); ylabel("\theta_2 dot")
-% title("observer")
-
-
-%% MSE compare
-
-% MSE for observer
-% sum((y1(:, 1)' - pi - y2(:, 1)').^2) / length(y1(:, 1)')
-% 
-% sum((y1(:, 2)' - y2(:, 2)').^2) / length(y1(:, 2)')
-
-
-
-% %% test on setup
+% u = 0.0*sin(2*pi*2*f*t); 
 % 
 % hwinit
 % 
+% simulink_input = timeseries(-u,t); 
+% 
+% simulink_output = sim('step5_setup_obsservor_test1.mdl');
+% 
+% setup = simulink_output.setup(:, :);
+% 
+% theta_1_0 = sum(setup(:, 1)) / length(setup(:, 1));
+% theta_2_0 = sum(setup(:, 2)) / length(setup(:, 1));
 % 
 % % test input
-% u = 0.1*sin(2*pi*f*t); 
+% Delay = 5;
+% t_span = 5;
+% RunTime = t_span + Delay;
+% time_step = 0.001;
+% t = 0 : time_step : RunTime;
+% f = 1;
 % 
 % 
-% simulink_input = timeseries(u,t);
+% u = 0.1*sin(2*pi*f*t) + 0.2*sin(3*pi*2*f*t) +  0.1*sin(2*pi*2*f*t); 
 % 
-% sinulink_output = sim('step5_setup_obsservor_test1.mdl');
+% hwinit
 % 
-% y3 = sinulink_output.oberver_setup_output;
-% y4 = sinulink_output.observer_output;
-% y5 = sinulink_output.observer_states(:, 2);
-% y6 = sinulink_output.observer_states(:, 4);
+% simulink_input = timeseries(-u, t); 
 % 
-% xbeam_dot = (circshift(y3(:, 1), 1) - y3(:, 1)) / 0.001;
-% xpend_dot = (circshift(y3(:, 2), 1) - y3(:, 2)) / 0.001;
-% xbeam_dot(1) = 0;
-% xpend_dot(1) = 0;
-% figure;
-% subplot(2, 2, 1)
-% plot(t, y3(:, 1)' - pi)
-% xlabel("t"); ylabel("\theta_1")
-% title("setup")
-% 
-% subplot(2, 2, 2)
-% plot(t, y3(:, 2)')
-% xlabel("t"); ylabel("\theta_2")
-% title("setup")
-% 
-% subplot(2, 2, 3)
-% plot(t, y4(:, 1)')
-% xlabel("t"); ylabel("\theta_1")
-% title("observer")
-% 
-% subplot(2, 2, 4)
-% plot(t, y4(:, 2)')
-% xlabel("t"); ylabel("\theta_2")
-% title("observer")
+% simulink_output = sim('step5_setup_obsservor_test1.mdl');
+% % 
+% % t = t(Delay : end);
+% % 
+% nonlin = simulink_output.nonlinear(:, :);
+% obs = simulink_output.observer(:, :)';
+% lin = simulink_output.linear(:, :)';
+% % 
+% % nonlin = nonlin(Delay : end);
+% % obs = obs(Delay : end);
+% % lin = lin(Delay : end);
 % 
 % figure;
-% subplot(2, 2, 1)
-% plot(t, y5)
-% xlabel("t"); ylabel("\theta_1 dot")
-% title("setup")
 % 
-% subplot(2, 2, 2)
-% plot(t, y6)
-% xlabel("t"); ylabel("\theta_2 dot")
-% title("setup")
+% k = 1;
+% subplot(5, 1, k);
+% plot(t', (obs(:, k)));
+% hold on
+% plot(t', nonlin(:, k) - pi);
+% hold on
+% plot(t', lin(:, k));
+% xlabel("Time/s"); ylabel("Angle/rad")
+% title("\theta_1 comparison")
+% legend({'observer', 'nonlinear model', 'linear model'})
 % 
-% subplot(2, 2, 3)
-% plot(t, xbeam_dot)
-% xlabel("t"); ylabel("\theta_1 dot")
-% title("observer")
+% k = 2;
+% subplot(5, 1, k);
+% plot(t', obs(:, k));
+% hold on
+% plot(t', nonlin(:, k));
+% hold on
+% plot(t', lin(:, k));
+% xlabel("Time/s"); ylabel("Angle/rad")
+% title("\theta_1 dot comparison")
+% legend({'observer', 'nonlinear model', 'linear model'})
 % 
-% subplot(2, 2, 4)
-% plot(t, xpend_dot)
-% xlabel("t"); ylabel("\theta_2 dot")
-% title("observer")
+% k = 3;
+% subplot(5, 1, k);
+% plot(t', (obs(:, k)));
+% hold on
+% plot(t', nonlin(:, k));
+% hold on
+% plot(t', lin(:, k));
+% xlabel("Time/s"); ylabel("Angle/rad")
+% title("\theta_2 comparison")
+% legend({'observer', 'nonlinear model', 'linear model'})
+% 
+% k = 4;
+% subplot(5, 1, k);
+% plot(t', obs(:, k));
+% hold on
+% plot(t', nonlin(:, k));
+% hold on
+% plot(t', lin(:, k));
+% xlabel("Time/s"); ylabel("Angle/rad")
+% title("\theta_2 dot comparison")
+% legend({'observer', 'nonlinear model', 'linear model'})
+% 
+% k = 5;
+% subplot(5, 1, k);
+% plot(t', obs(:, k));
+% hold on
+% plot(t', nonlin(:, k));
+% hold on
+% plot(t', lin(:, k));
+% xlabel("Time/s"); ylabel("Angle/rad")
+% title("T comparison")
+% legend({'observer', 'nonlinear model', 'linear model'})
 % 
 % 
 % %% MSE compare
 % 
 % % MSE for observer
-% sum((y3(:, 1)' - pi - y4(:, 1)').^2) / length(y3(:, 1)')
+% k = 1;
+% sum((obs(:, k) - pi - nonlin(:, k)).^2) / length(obs(:, k))
+% k = 2;
+% sum((obs(:, k) - nonlin(:, k)).^2) / length(obs(:, k))
+% k = 3;
+% sum((obs(:, k) - nonlin(:, k)).^2) / length(obs(:, k))
+% k = 4;
+% sum((obs(:, k) - nonlin(:, k)).^2) / length(obs(:, k))
+% k = 5;
+% sum((obs(:, k) - nonlin(:, k)).^2) / length(obs(:, k))
 % 
-% sum((y3(:, 2)' - y4(:, 2)').^2) / length(y3(:, 2)')
-% 
-% sum((y5 - xbeam_dot).^2) / length(y3(:, 1)')
-% 
-% sum((y6 - xpend_dot).^2) / length(y3(:, 2)')

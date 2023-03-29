@@ -81,7 +81,7 @@ J = [Pole1 Pole2 Pole3 Pole4 Pole5];
 clear Pole1 Pole2 Pole3 Pole4 Pole5
 
 
-K1 = place(A, B, 1*J);%number in front of the J is the scaling 
+K1 = place(A, B, 0.5*J);%number in front of the J is the scaling 
 
 % both method give the same output, K1 = K2
 K = K1;
@@ -103,7 +103,7 @@ impulse(G1, t)
 
 % Q = eye(5);
 
-Q = diag([1e4, 1, 1e4, 1, 1]);
+Q = diag([100, 0, 100, 0, 0]);
 
 R = 1 * eye(1);
 
@@ -121,5 +121,6 @@ pole(G_Lqr)
 figure;
 impulse(G_Lqr, t)
 
-
+theta_2_0 = 0;
+theta_1_0 = 0;
 hwinit

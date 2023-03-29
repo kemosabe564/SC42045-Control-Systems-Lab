@@ -5,9 +5,9 @@ clc
 load("step3_3_blackbx_system.mat")
 
 
-load("black-box data\round 7\xbeam.mat")
-load("black-box data\round 7\xpend.mat")
-load("black-box data\round 7\u.mat")
+load("black-box data\round 5\xbeam.mat")
+load("black-box data\round 5\xpend.mat")
+load("black-box data\round 5\u.mat")
 
 load("calib_data\wb_adin_gain.mat")
 load("calib_data\wb_adin_offs.mat")
