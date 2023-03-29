@@ -65,7 +65,7 @@ A_ = A';
 B_ = C';
 C_ = B';
 D_ = D';
-Ke = place(A_, B_, 3*J)';%number in front of the J is the scaling 
+Ke = place(A_, B_, J)';%number in front of the J is the scaling 
 
 save('step5_observor.mat','Ke')
 
@@ -77,7 +77,7 @@ t = 0 : 0.001 : 10;
 f = 1;
 
 % test input
-u = 0.3*sin(2*pi*f*t); 
+u = 0.2*sin(2*pi*f*t); 
 
 hwinit
 
@@ -85,67 +85,9 @@ simulink_input = timeseries(u,t);
 
 simulink_output = sim('step5_setup_obsservor_test1.mdl');
 
-nonlin = simulink_output.nonlinear(:, :);
-obs = simulink_output.observer(:, :)';
-lin = simulink_output.linear(:, :)';
-
-figure;
-
-k = 1;
-subplot(5, 1, k);
-plot(t', obs(:, 1) - pi);
-hold on
-plot(t', nonlin(:, k) - pi);
-hold on
-plot(t', lin(:, k));
-xlabel("Time/s"); ylabel("Angle/rad")
-title("\theta_1 comparison")
-legend({'observer', 'nonlinear model', 'linear model'})
-
-k = 2;
-subplot(5, 1, k);
-plot(t', obs(:, 1));
-hold on
-plot(t', nonlin(:, k));
-hold on
-plot(t', lin(:, k));
-xlabel("Time/s"); ylabel("Angle/rad")
-title("\theta_1 dot comparison")
-legend({'observer', 'nonlinear model', 'linear model'})
-
-k = 3;
-subplot(5, 1, k);
-plot(t', obs(:, 1));
-hold on
-plot(t', nonlin(:, k));
-hold on
-plot(t', lin(:, k));
-xlabel("Time/s"); ylabel("Angle/rad")
-title("\theta_2 comparison")
-legend({'observer', 'nonlinear model', 'linear model'})
-
-k = 4;
-subplot(5, 1, k);
-plot(t', obs(:, 1));
-hold on
-plot(t', nonlin(:, k));
-hold on
-plot(t', lin(:, k));
-xlabel("Time/s"); ylabel("Angle/rad")
-title("\theta_2 dot comparison")
-legend({'observer', 'nonlinear model', 'linear model'})
-
-k = 5;
-subplot(5, 1, k);
-plot(t', obs(:, 1));
-hold on
-plot(t', nonlin(:, k));
-hold on
-plot(t', lin(:, k));
-xlabel("Time/s"); ylabel("Angle/rad")
-title("T comparison")
-legend({'observer', 'nonlinear model', 'linear model'})
-
+nonlin = simulink_output.nonlinear(5, :, :);
+obs = simulink_output.observer;
+lin = simulink_output.linear;
 
 % 
 % figure;

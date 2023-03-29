@@ -72,16 +72,16 @@ load("step5_observor.mat")
 
 %% pole placement
  
-Pole1 = -202;
-Pole2 = -203;
-Pole3 = -204;
-Pole4 = -205;
-Pole5 = -210;
+Pole1 = -50;
+Pole2 = -60;
+Pole3 = -70;
+Pole4 = -80;
+Pole5 = -75;
 J = [Pole1 Pole2 Pole3 Pole4 Pole5];
 clear Pole1 Pole2 Pole3 Pole4 Pole5
 
 
-K1 = place(A, B, 0.5*J);%number in front of the J is the scaling 
+K1 = place(A, B, 1*J);%number in front of the J is the scaling 
 
 % both method give the same output, K1 = K2
 K = K1;
@@ -120,3 +120,6 @@ pole(G_Lqr)
 
 figure;
 impulse(G_Lqr, t)
+
+
+hwinit
