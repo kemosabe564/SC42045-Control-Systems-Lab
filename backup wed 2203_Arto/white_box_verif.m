@@ -67,10 +67,19 @@ th2_0 = xpend(1);
 
 input = - input;
 
+xbeam_d = (xbeam - circshift(xbeam,1))/ 0.001;
+xpend_d = (xpend - circshift(xpend,1))/ 0.001;
+xbeam_d(1) = 0;
+xpend_d(1) = 0;
+
 c2 = 0.046090; I2 = 0.000099;
 b2 = 0.000027; 
 l2 = 0.100000; m2 = 0.046955; 
 
+km = 40.000000;
+b1 = 6.125321;
+c1 = -0.032000;
+I1 = 0.088800; tau = 0.015000;
 
 %% Show results and plot output curves
 tm = sim('dbl_pendulum_model.slx', time_vector, [], [time_vector input]);
@@ -79,6 +88,11 @@ sz = size(theta1m);
 theta1m = reshape(theta1m, [sz(3), 1]);
 theta2m = reshape(theta2m, [sz(3), 1]);
 
+theta_d1 = reshape(theta_d1, [sz(3), 1]);
+theta_d2 = reshape(theta_d2, [sz(3), 1]);
+torquem = reshape(torquem, [sz(3), 1]);
+
+
 figure(2);
 clf
 
@@ -86,7 +100,7 @@ subplot(1, 2, 1)
 stairs(tm,xbeam, 'LineWidth',2);
 hold on;
 stairs(tm,theta1m, 'LineWidth',2);
-title('\theta_1 Data Comparison between the Setup and Nonlinear Model')
+title('\theta_1 Data Comparison')
 xlabel('Time/s')
 ylabel('Angle/rad')
 legend({'\theta_1', '\theta_1 estimation'})
@@ -95,10 +109,40 @@ subplot(1, 2, 2)
 stairs(tm,xpend, 'LineWidth',2);
 hold on;
 stairs(tm,theta2m,  'LineWidth',2);
-title('\theta_2 Data Comparison between the Setup and Nonlinear Model')
+title('\theta_2 Data Comparison')
 xlabel('Time/s')
 ylabel('Angle/rad')
 legend({'\theta_2', '\theta_2 estimation'})
+
+figure(3);
+clf
+
+subplot(1, 2, 1)
+stairs(tm,xbeam_d, 'LineWidth',2);
+hold on;
+stairs(tm,theta_d1, 'LineWidth',2);
+title('\theta_1 Data Comparison')
+xlabel('Time/s')
+ylabel('Angle/rad')
+legend({'\theta_1', '\theta_1 estimation'})
+
+subplot(1, 2, 2)
+stairs(tm,xpend_d, 'LineWidth',2);
+hold on;
+stairs(tm,theta_d2,  'LineWidth',2);
+title('\theta_2 Data Comparison')
+xlabel('Time/s')
+ylabel('Angle/rad')
+legend({'\theta_2', '\theta_2 estimation'})
+
+% subplot(1, 3, 3)
+% stairs(tm,xpend, 'LineWidth',2);
+% hold on;
+% stairs(tm,torquem,  'LineWidth',2);
+% title('\theta_2 Data Comparison')
+% xlabel('Time/s')
+% ylabel('Angle/rad')
+% legend({'\theta_2', '\theta_2 estimation'})
 
 %% MSE
 sum((xbeam - theta1m).^2) / length(theta1m)

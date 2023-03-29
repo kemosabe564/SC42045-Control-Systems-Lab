@@ -13,7 +13,7 @@ g = 9.81;
 l_1 = 0.1;
 l_2 = 0.1;
 m_1 = 0.125;
-m_2 = 0.05;
+m_2 = 0.046955;
 
 %% paper equations
 % calculate variables for in assignment matrices
@@ -45,16 +45,16 @@ G = [-g1 * sin(theta_1) - g2 * sin(theta_1 + theta_2);
 
 % theta_dd = f(x):
 theta_dd = M_inv * T_vec - M_inv * C * theta_d_vec - M_inv * G;  %#ok<MINV> 
-theta_dd = subs(theta_dd,T_d,T_equation) % so we have a function of T, not T_d.
+theta_dd = subs(theta_dd,T_d,T_equation); % so we have a function of T, not T_d.
 
-T_d = solve(T_equation,T_d)
+T_d = solve(T_equation,T_d);
 
 % combine all to a system equation x_d = f(x,u)
-system_f = [theta_d_1;theta_dd(1);theta_d_2;theta_dd(2);T_d]
+system_f = [theta_d_1;theta_dd(1);theta_d_2;theta_dd(2);T_d];
 
 % Make matlab function of this Non-Linear function, so we can use it in the
 % whitebox estimator, and the other scripts.
-NonLinFunc = matlabFunction(system_f)
+NonLinFunc = matlabFunction(system_f);
 
 disp(NonLinFunc);
 

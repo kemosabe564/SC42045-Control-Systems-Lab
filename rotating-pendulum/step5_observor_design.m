@@ -127,10 +127,17 @@ sum((y1(:, 2)' - y2(:, 2)').^2) / length(y1(:, 2)')
 
 hwinit
 
+
+% test input
+u = 0.8*sin(2*pi*f*t); 
+
+
+simulink_input = timeseries(u,t);
+
 sinulink_output1 = sim('step5_setup_obsservor_test1.mdl');
 
-y3 = oberver_setup_output;
-y4 = observer_output;
+y3 = sinulink_output1.oberver_setup_output;
+y4 = sinulink_output1.observer_output;
 figure;
 subplot(2, 2, 1)
 plot(t, y3(:, 1)' - pi)

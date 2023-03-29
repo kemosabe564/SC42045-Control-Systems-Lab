@@ -156,6 +156,8 @@ y4 = sinulink_output.yout{4}.Values.Data(1,1,:);
 y5 = sinulink_output.yout{5}.Values.Data;
 y6 = sinulink_output.yout{6}.Values.Data;
 
+% y1 = y1(1,:)';
+% y2 = y2(1,:)';
 y3 = y3(1,:)';
 y4 = y4(1,:)';
 figure;

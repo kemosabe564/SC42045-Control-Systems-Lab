@@ -1,15 +1,12 @@
 initial c2 : 0.060000, final c2 : 0.046090, initial I2 : 0.000120, final I2 : 0.000099, initial b2 : 0.000200, final b2 : 0.000027 
 initial l2 : 0.100000, final l2 : 0.100000, initial m2 : 0.050000, final m2 : 0.046955 
 
-initial c2 : 0.060000, final c2 : 0.012597, initial I2 : 0.000120, final I2 : 0.000044, initial b2 : 0.000200, final b2 : 0.000007 
-initial l2 : 0.100000, final l2 : 0.100000, initial m2 : 0.050000, final m2 : 0.045343 
+
 
 
 initial km : 40.000001, final km : 40.000000, initital b1 : 6.411027, final b1 : 6.301237
 initial c1 : -0.032000, final c1 : -0.032000, initital I1 : 0.088800, final I1 : 0.088800, initital tau : 0.015000, final tau : 0.015000
->> tial b2 : 0
-initial km : 40.000000, final km : 40.000000, initital b1 : 6.097317, final b1 : 6.125321
-initial c1 : -0.032000, final c1 : -0.032000, initital I1 : 0.088800, final I1 : 0.088800, initital tau : 0.015000, final tau : 0.015000
+>> tial 
 >> white_box_verif
 
 
