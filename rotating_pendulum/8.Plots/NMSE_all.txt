@@ -1,0 +1,64 @@
+NMSE LQR (in percentages)
+
+downdown
+NMSE_theta_1 =
+
+   13.6825
+
+
+NMSE_theta_2 =
+
+   13.9954
+
+downup
+NMSE_theta_1 =
+
+   36.0881
+
+
+NMSE_theta_2 =
+
+   16.8933
+
+upup
+NMSE_theta_1 =
+
+   10.4194
+
+
+NMSE_theta_2 =
+
+   21.6232
+
+NMSE Poleplacement (in percentages)
+
+downdown:
+NMSE_theta_1 =
+
+    1.5896
+
+
+NMSE_theta_2 =
+
+    1.5123
+
+
+downup:
+NMSE_theta_1 =
+
+   24.2053
+
+
+NMSE_theta_2 =
+
+   15.4734
+
+upup:
+NMSE_theta_1 =
+
+   21.3746
+
+
+NMSE_theta_2 =
+
+   26.6431

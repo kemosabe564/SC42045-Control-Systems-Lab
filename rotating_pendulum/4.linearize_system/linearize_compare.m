@@ -120,8 +120,6 @@ C = [1 0 0 0 0;
 D = zeros(2,1);
 
 %% we save these to a file.
-
-save('step4_linearized_system.mat','A','B','C','D','x_op','params')
 % this can be used in other files easily, with all the right values.
 
 rank(ctrb(A, B))

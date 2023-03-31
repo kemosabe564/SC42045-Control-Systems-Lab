@@ -1,4 +1,4 @@
-clear
+clear, clc
 %% load the observer data
 
 % load the system, SET THE OPERATING POINT IN THE "SimObserver.m" FILE!
@@ -32,11 +32,6 @@ theta_1_d = [0 setup_output(1, 2:end) - setup_output(1, 1:end-1)]/time_step;
 theta_2_d = [0 setup_output(2, 2:end) - setup_output(2, 1:end-1)]/time_step;
 t = 0:time_step:data_length*time_step-time_step;
 
-% compare_theta_1{1}.Values
-% compare_theta_2{1}.Values
-% 
-% compare_theta_1{2}.Values
-% compare_theta_2{2}.Values
 %% plot results
 
 figure(1),clf;
@@ -92,44 +87,7 @@ immse(theta_1, obs_output(1,:)) / std(theta_1)
 
 immse(theta_2, obs_output(3,:)) / std(theta_2)
 
-% immse(theta_1_d, obs_output(2,:)) / std(obs_output(2,:))
-% 
-% immse(theta_2_d, obs_output(4,:)) / std(obs_output(4,:))
-
 snr(obs_output(1,:), theta_2_d - obs_output(1,:))
 
 snr(obs_output(2,:), theta_1_d - obs_output(2,:))
 
-% subplot(2,4,5)
-%     plot(t,obs_output(1,:))
-%     ylabel('Observer estimate')
-% subplot(2,4,6)
-%     plot(t,obs_output(2,:))
-% subplot(2,4,7)
-%     plot(t,obs_output(3,:))
-% subplot(2,4,8)
-%     plot(t,obs_output(4,:))
-
-% subplot(2,4,1)
-%     plot(t,theta_1)
-%     title('theta_1')
-%     ylabel('System measurements')
-% subplot(2,4,2)
-%     plot(t,theta_1_d)
-%     title('theta_1-dot')
-% subplot(2,4,3)
-%     plot(t,theta_2)
-%     title('theta_2')
-% subplot(2,4,4)
-%     plot(t,theta_2_d)
-%     title('theta_2-dot')
-% 
-% subplot(2,4,5)
-%     plot(t,obs_output(1,:))
-%     ylabel('Observer estimate')
-% subplot(2,4,6)
-%     plot(t,obs_output(2,:))
-% subplot(2,4,7)
-%     plot(t,obs_output(3,:))
-% subplot(2,4,8)
-%     plot(t,obs_output(4,:))

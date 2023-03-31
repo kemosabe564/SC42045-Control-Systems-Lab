@@ -1,0 +1,13 @@
+Estimated Parameters:
+c_2 = 0.020016
+I_2 = 9.4106e-05
+b_2 = 2.081e-05
+>> 
+
+Estimated Parameters:
+c_1 = -0.0077678
+I_1 = 0.10283
+b_1 = 5.7527
+k_m = 47.4499
+tau_e = 0.35968
+>> 

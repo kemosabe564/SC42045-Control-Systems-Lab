@@ -65,11 +65,11 @@ pend_params = [c_2,I_2,b_2];
 
 % initial beam parameters:
 %                   [c_1_0, I_1_0,  b_1_0,  k_m_0,  tau_e_0]
-beam_params_init =  [-0.04, 0.074,  4.8,    50,     0.03]; %original
-%beam_params_init =  [-0.0286,  0.02,    7,    46,     0.03]; % other group
+%beam_params_init =  [-0.04, 0.074,  4.8,    50,     0.03]; %original
+beam_params_init =  [-0.0286,  0.02,    7,    46,     0.03]; % other group
 
-beam_params_lb =    [-0.06,  0.000,  0,  -50, 0.00];
-beam_params_ub =    [ 0.00,  2.00,  50,  80,    0.9];
+beam_params_lb =    [-0.1,  0.000,  0,  10, 0.0];
+beam_params_ub =    [ 0.0,  0.2,  20,  80,     1];
 
 %% simulate using original Parameters:
 state = run_simulation(beam_params_init,pend_params,t,u,NonLinFunc,delta_t,state_init);
@@ -129,12 +129,6 @@ save('Beam Estimate','c_1','I_1','b_1', 'k_m','tau_e')
 function cost = costfun(beam_params,pend_params,y_meas,t,u,NonLinFunc,delta_t,state_init)
     state = run_simulation(beam_params,pend_params,t,u,NonLinFunc,delta_t,state_init);
     e_th_1 = y_meas(1,:) - state(1,:); 
-%     e_th_2 = y_meas(2,:) - state(3,:);
-    
-%     e = y_meas - [state(1,:) state(3,:)];
-
-%    cost = [e_th_1;e_th_2];
-%     cost = sum(e_th_1.^2) + sum(e_th_2.^2);
     cost = e_th_1.^2;
 end
 

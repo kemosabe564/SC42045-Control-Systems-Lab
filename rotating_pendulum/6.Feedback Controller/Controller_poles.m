@@ -1,6 +1,6 @@
 clear,clc
 %% load the observer data
-set_position = 'upup';
+set_position = 'downup';
 
 if strcmp(set_position,'downdown')
     theta_1_Op = pi;
@@ -29,29 +29,55 @@ theta_2_0 = theta_2_Op;
 %% make controller gain L
 
 if strcmp(set_position,'downdown') % works
-    Q = diag([1100, 0.001, 1100, 0.001, 0.001]);
-    Q(3,1) = 1000;
-    Q(1,3) = 1000;
-    R = 200;
-    z1_gain = 0;
+    omega_eig_beam = 22.30;
+    damp_beam = -0.962;
+    omega_eig_pend = 7.16;
+    damp_pend = -0.64;
+    tss = 0.0098;
+    z1_gain = 0.0;
+
+
 elseif strcmp(set_position,'downup') % works
-    Q = diag([300, 0.1, 200, 0.001, 0.01]);
-    Q(3,1) = 100;
-    Q(1,3) = 100;
-    R = 50;
-    z1_gain = 0.3;
+    %original values
+%     omega_eig_beam = 27.28;
+%     damp_beam = -1.04;
+%     omega_eig_pend = 9.16;
+%     damp_pend = -0.88;
+%     tss =  0.0098;
+    %after tuning
+    omega_eig_beam = 27.28;
+    damp_beam = -3.04;
+    omega_eig_pend = 9.16;
+    damp_pend = -0.88;
+    tss =  0.0098;
+    z1_gain = 0.9;
+
 elseif strcmp(set_position,'upup') % does not work yet
-    Q = diag([1, 0.0, 1, 0.00, 0.00]);
-    Q(3,1) = 000;
-    Q(1,3) = 000;
-    R = 10;
-    z1_gain = 0.3;
+    omega_eig_beam = 20.21;
+    damp_beam = -1.21;
+    omega_eig_pend = 5.28;
+    damp_pend = -1.20;
+    tss =  0.0098;
+    z1_gain = 0.5;
+    
+
 end
+pole_pend1_start = omega_eig_pend*(damp_pend + sqrt(damp_pend^2 -1));
+pole_pend2_start = omega_eig_pend*(damp_pend - sqrt(damp_pend^2 -1));
+
+pole_beam1_start = omega_eig_beam*(damp_beam + sqrt(damp_beam^2 -1));
+pole_beam2_start = omega_eig_beam*(damp_beam - sqrt(damp_beam^2 -1));
+
+tau = tss/4;
+poleT_start =-1/tau; 
+
+% get poles from params
+
+%place the poles in the controller gain
+L = place(A,B,[pole_pend1_start,pole_pend2_start,pole_beam1_start,pole_beam2_start,poleT_start]);
 
 
-N = zeros(5,1);
-sys = ss(A,B,C,D);
-[L,~,Poles] = lqr(sys,Q,R);
+
 
 %% setup simulink
 hwinit

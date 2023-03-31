@@ -22,10 +22,10 @@ y_meas = theta_2;
 
 %% initial parameters
 % paramters:         [c_2_0,  I_2_0,    b_2_0]
-pend_params_init = [0.03, 19.81e-5, 19.346e-5]; %original
+pend_params_init = [0.06, 0.00012, 0.0002]; %original
 %pend_params_init = [0.06, 6.81e-5, 1.346e-4]; % other group
 
-pend_params_lb =     [0.06,   0.00001,  0.00002];
+pend_params_lb =     [0.02,   0.00000,  0.0000001];
 pend_params_ub =     [0.08,   0.00024,  0.001];
 
 %% simulate using original Parameters:
@@ -51,24 +51,16 @@ OPT = optimset('Display','iter');
 % params_hat = lsqnonlin(f, pend_params_init, pend_params_lb, pend_params_ub, OPT); 
 params_hat = fmincon(f, pend_params_init,[],[],[],[],pend_params_lb,pend_params_ub,[],OPT); 
 
-% params_hat(1) = 0.03;
-% params_hat(2) = 19.81e-5;
-% params_hat(3) = 19.346e-5;
-
 state = run_simulation(params_hat,t,NonLinFunc,delta_t, state_init); 
 
 %% Show results
 figure(1)   
     plot(t,state(1,:),'DisplayName','Estimated Parameters')
     ylim([-1.5 1.5])
-% 
-% c_2 = params_hat(1);
-% I_2 = params_hat(2);
-% b_2 = params_hat(3);
 
-b_2 = 1.346e-4;
-c_2 = 0.06;
-I_2 = 6.81e-5;
+c_2 = params_hat(1);
+I_2 = params_hat(2);
+b_2 = params_hat(3);
 
 disp('Estimated Parameters:')
     disp(['c_2 = ', num2str(params_hat(1))])
@@ -80,7 +72,6 @@ save('Pendulum Estimate','c_2','I_2','b_2')
 %% Function:
 function cost = costfun(params, y_meas, t, NonLinFunc, delta_t, state_init)
     state = run_simulation(params,t,NonLinFunc,delta_t, state_init);
-    %cost = y_meas' - state(1,:);
     e = y_meas' - state(1,:);
     cost = sum(e.^2);
 end

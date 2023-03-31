@@ -1,0 +1,64 @@
+MSE Poleplacement:
+
+downdown:
+MSE_theta_1 =
+
+   6.3172e-04
+
+
+MSE_theta_2 =
+
+   5.0811e-04
+
+downup:
+MSE_theta_1 =
+
+    0.0109
+
+
+MSE_theta_2 =
+
+    0.0052
+
+upup:
+MSE_theta_1 =
+
+    0.0371
+
+
+MSE_theta_2 =
+
+    0.0463
+
+MSE LQR:
+
+downdown:
+MSE_theta_1 =
+
+   1.5497e-05
+
+
+MSE_theta_2 =
+
+   1.5307e-05
+
+downup:
+MSE_theta_1 =
+
+    0.0268
+
+
+MSE_theta_2 =
+
+    0.0125
+
+
+upup:
+MSE_theta_1 =
+
+    0.0050
+
+
+MSE_theta_2 =
+
+    0.0107

@@ -1,6 +1,6 @@
 clear,clc
 %% load the observer data
-set_position = 'upup';
+set_position = 'downup';
 
 if strcmp(set_position,'downdown')
     theta_1_Op = pi;
@@ -64,7 +64,5 @@ sim('ControllerPhysical.slx');
 %%
 %calculateMSE
 ref_0 = zeros(length(theta_1_measurement.Data),1);
-% MSE_theta_1 = immse(ref_0,theta_1_measurement.Data) / (max(theta_1_measurement.Data) - min(theta_1_measurement.Data));
-% MSE_theta_2 = immse(ref_0,theta_2_measurement1.Data) / (max(theta_2_measurement1.Data) - min(theta_2_measurement1d.Data));
-NMSE_theta_1 = (immse(ref_0,theta_1_measurement.Data) / std((theta_1_measurement.Data)))*100
-NMSE_theta_2 = (immse(ref_0,theta_2_measurement1.Data) / std((theta_1_measurement.Data)))*100
+MSE_theta_1 = immse(ref_0,theta_1_measurement.Data) / (max(theta_1_measurement.Data) - min(theta_1_measurement.Data));
+MSE_theta_2 = immse(ref_0,theta_2_measurement1.Data)
