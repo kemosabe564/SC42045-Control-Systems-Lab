@@ -1,0 +1,28 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% DSCS FPGA interface board: init and I/O conversions
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% gains and offsets
+daoutoffs = [0.00];                   % output offset
+daoutgain = 1*[-6];                   % output gain
+
+
+% % Sensor calibration:
+adin_offs = -[0 0];
+adin_gain = [1 1];
+
+%adin_offs = [1.2028, 1.1955];
+%adin_gain = [1.2030, 1.2126];
+
+%adin_offs = [-1.1799   -0.9445];
+%adin_gain = [1.1930    1.2384];
+
+load('../1.CalibrateSensors/adin_gain.mat')
+load('../1.CalibrateSensors/adin_offs.mat')
+
+adinoffs = [adin_offs 0 0 0 0 0];    % input offset
+adingain = [adin_gain 1 1 1 1 1];     % input gain (to radians)
+
+h = 0.001;
+
+
