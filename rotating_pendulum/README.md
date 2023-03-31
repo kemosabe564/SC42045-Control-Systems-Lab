@@ -2,7 +2,7 @@
 
 This is an implementation of a control system towards a rotating double pendulum in the course CS42045. The expriment is done by MATLAB and Simulink with a real setup in DCSC lab, TU Delft, Netherlands
 
-The repository is organized as follows steps:
+## The repository is organized as follows steps:
 
 1. calibrate the sensor to obtain the desired measurement
 
